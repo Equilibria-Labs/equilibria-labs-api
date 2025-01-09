@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-types */
 'use client';
 
 import { useState } from 'react';
