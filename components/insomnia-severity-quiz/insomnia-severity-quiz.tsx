@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-types */
 'use client';
 
 import { useState } from 'react';
@@ -101,16 +102,18 @@ export default function InsomniaQuiz() {
             {questions[currentQuestion].text}
           </h2>
           <div className='space-y-3'>
-            {questions[currentQuestion].options.map((option, index) => (
-              <Button
-                key={index}
-                variant='secondary'
-                className='w-full justify-start text-left h-auto py-4 px-6'
-                onClick={() => handleAnswer(index)}
-              >
-                {option}
-              </Button>
-            ))}
+            {questions[currentQuestion].options.map(
+              (option: string, index: number) => (
+                <Button
+                  key={index}
+                  variant='secondary'
+                  className='w-full justify-start text-left h-auto py-4 px-6'
+                  onClick={() => handleAnswer(index)}
+                >
+                  {option}
+                </Button>
+              )
+            )}
           </div>
         </div>
 
