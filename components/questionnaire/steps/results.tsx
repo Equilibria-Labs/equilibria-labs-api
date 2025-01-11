@@ -21,6 +21,8 @@ function calculateResults(answers: Record<string, string[]>): {
 } {
   let score = 100;
   const issues: { icon: string; text: string }[] = [];
+  score = 50;
+  console.log(answers);
 
   // Example calculations based on answers
   // if (answers['sleep-worry'] && answers['sleep-worry'].includes('often')) {
@@ -50,7 +52,7 @@ function calculateResults(answers: Record<string, string[]>): {
 export function ResultsStep({ step, answers }: ResultsStepProps) {
   const { score, issues } = calculateResults(answers);
   console.log(step);
-
+  console.log(answers);
   return (
     <div className='space-y-8'>
       <div className='relative p-8'>

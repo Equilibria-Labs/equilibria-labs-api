@@ -15,6 +15,7 @@ interface QuestionnaireProps {
   steps: Step[];
   onComplete: (answers: Record<string, string[]>) => void;
   onStepComplete: (stepId: string, answer: string[]) => void;
+  answers: Record<string, string[]>;
 }
 
 export function Questionnaire({ steps, onComplete }: QuestionnaireProps) {
