@@ -13,12 +13,12 @@ import { ChevronLeft } from 'lucide-react';
 
 interface QuestionnaireProps {
   steps: Step[];
-  onComplete: (answers: Record<string, string[]>) => void;
+  onCompleteAction: (answers: Record<string, string[]>) => void;
   onStepComplete: (stepId: string, answer: string[]) => void;
   answers: Record<string, string[]>;
 }
 
-export function Questionnaire({ steps, onComplete }: QuestionnaireProps) {
+export function Questionnaire({ steps, onCompleteAction }: QuestionnaireProps) {
   const [state, setState] = useState<QuestionnaireState>({
     currentStepIndex: 0,
     answers: {},
@@ -38,7 +38,7 @@ export function Questionnaire({ steps, onComplete }: QuestionnaireProps) {
       if (resultsStep !== -1) {
         setState(prev => ({ ...prev, currentStepIndex: resultsStep }));
       } else {
-        onComplete(state.answers);
+        onCompleteAction(state.answers);
       }
     }
   };
@@ -86,7 +86,7 @@ export function Questionnaire({ steps, onComplete }: QuestionnaireProps) {
       case 'educational':
         return <EducationalStep step={currentStep} next={handleNext} />;
       case 'results':
-        return <ResultsStep step={currentStep} />;
+        return <ResultsStep step={currentStep} answers={state.answers} />;
       default:
         return null;
     }

@@ -23,7 +23,7 @@ export default function Page() {
   return (
     <Questionnaire
       steps={onboardingConfig.steps}
-      onComplete={handleComplete}
+      onCompleteAction={handleComplete}
       onStepComplete={handleStepComplete}
       answers={answers}
     />

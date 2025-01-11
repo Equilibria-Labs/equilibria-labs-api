@@ -21,6 +21,7 @@ export interface MultipleChoiceStep extends BaseStep {
   subtitle?: string;
   choices: Choice[];
   minSelections?: number;
+  maxSelections?: number;
 }
 
 export interface SingleChoiceStep extends BaseStep {
@@ -41,6 +42,7 @@ export interface MessageStep extends BaseStep {
   type: 'message';
   title: string;
   message: string;
+  imageUrl?: string;
 }
 
 export interface ResultsIssue {

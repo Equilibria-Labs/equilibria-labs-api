@@ -1,9 +1,12 @@
-import { MessageStep as MessageStepType } from '@/types/questionnaire';
+import {
+  MessageStep as MessageStepType,
+  MessageWithImageStep,
+} from '@/types/questionnaire';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 
 interface MessageStepProps {
-  step: MessageStepType;
+  step: MessageStepType | MessageWithImageStep;
   next: () => void;
 }
 
