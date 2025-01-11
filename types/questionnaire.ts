@@ -63,3 +63,8 @@ export type Step =
   | EducationalStep
   | MessageStep
   | ResultsStep;
+
+export type QuestionnaireState = {
+  currentStepIndex: number;
+  answers: Record<string, string[]>;
+};
