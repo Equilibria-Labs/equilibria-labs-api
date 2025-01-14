@@ -93,7 +93,7 @@ export function Questionnaire({ steps, onCompleteAction }: QuestionnaireProps) {
   };
 
   return (
-    <div className='min-h-screen bg-[#1e1b2e] text-white'>
+    <div className='min-h-screen'>
       <div className='container max-w-2xl mx-auto px-4 py-8'>
         <header className='flex items-center mb-8'>
           {state.currentStepIndex > 0 && currentStep.type !== 'results' && (
@@ -112,9 +112,9 @@ export function Questionnaire({ steps, onCompleteAction }: QuestionnaireProps) {
         </header>
 
         {currentStep.type !== 'results' && (
-          <div className='mb-6 bg-white/10 h-1 rounded-full'>
+          <div className='mb-6 h-1 rounded-full'>
             <div
-              className='bg-[#7c3aed] h-full rounded-full transition-all duration-300'
+              className='h-full rounded-full transition-all duration-300'
               style={{
                 width: `${((state.currentStepIndex + 1) / (steps.length - 1)) * 100}%`,
               }}

@@ -1,9 +1,8 @@
 // import { useState, useEffect } from 'react';
 import { useState } from 'react';
 import { MultipleChoiceStep as MultipleChoiceStepType } from '@/types/questionnaire';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
+import { Choice } from '@/components/common/Choice';
 
 interface MultipleChoiceStepProps {
   step: MultipleChoiceStepType;
@@ -47,37 +46,20 @@ export function MultipleChoiceStep({
   return (
     <div className='space-y-6'>
       <div className='space-y-2'>
-        {step.subtitle && (
-          <div className='text-sm text-white/60'>{step.subtitle}</div>
-        )}
+        {step.subtitle && <div className='text-sm'>{step.subtitle}</div>}
         {step.title && <h2 className='text-2xl font-bold'>{step.title}</h2>}
       </div>
 
       <div className='space-y-3'>
         {step.choices.map(choice => (
-          <div
+          <Choice
             key={choice.id}
-            className={`flex items-center space-x-3 rounded-xl p-4 cursor-pointer transition-colors
-              ${
-                selectedOptions.includes(choice.id)
-                  ? 'bg-[#7c3aed] text-white'
-                  : 'bg-white/10 hover:bg-white/20 text-white'
-              }`}
-            onClick={() => handleToggle(choice.id)}
-          >
-            <Checkbox
-              id={choice.id}
-              checked={selectedOptions.includes(choice.id)}
-              onCheckedChange={() => handleToggle(choice.id)}
-              className='border-white data-[state=checked]:bg-white data-[state=checked]:text-[#7c3aed]'
-            />
-            <Label
-              htmlFor={choice.id}
-              className='flex-1 cursor-pointer text-lg'
-            >
-              {choice.text}
-            </Label>
-          </div>
+            choice={choice}
+            onChange={handleToggle}
+            next={next}
+            type='checkbox'
+            checked={selectedOptions.includes(choice.id)}
+          />
         ))}
       </div>
 
