@@ -56,7 +56,17 @@ module.exports = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      fontFamily: {
+        heading: ['Pridi', 'sans-serif'],
+        body: ['Outfit', 'sans-serif'],
+      },
+      fontSize: {
+        'heading-lg': '2rem',
+        'heading-md': '1.5rem',
+        'body-lg': '1rem',
+        'body-md': '0.875rem',
+      },
     },
   },
-  plugins: ['tailwindcss-animate'],
+  plugins: [],
 };

@@ -1,6 +1,6 @@
 import HeaderAuth from '@/components/account/header-auth';
 import { ThemeSwitcher } from '@/components/account/theme-switcher';
-import { Geist } from 'next/font/google';
+import { Pridi, Outfit } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import './globals.css';
 
@@ -10,13 +10,20 @@ const defaultUrl = process.env.VERCEL_URL
 
 export const metadata = {
   metadataBase: new URL(defaultUrl),
-  title: 'Next.js and Supabase Starter Kit',
-  description: 'The fastest way to build apps with Next.js and Supabase',
+  title: 'The Sleep Lab by Equilibria Labs',
+  description: 'It’s time to get your sleep on track.',
 };
 
-const geistSans = Geist({
+const pridi = Pridi({
   display: 'swap',
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+});
+
+const outfit = Outfit({
+  display: 'swap',
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
 });
 
 export default function RootLayout({
@@ -25,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' className={geistSans.className} suppressHydrationWarning>
+    <html lang='en' className='font-body' suppressHydrationWarning>
       <body className='bg-background text-foreground'>
         <ThemeProvider
           attribute='class'
@@ -41,6 +48,9 @@ export default function RootLayout({
                 </div>
               </nav>
               <div className='flex flex-col gap-20 max-w-5xl p-5'>
+                <h1 className='font-heading text-heading-lg'>
+                  Your Heading Here
+                </h1>
                 {children}
               </div>
 
