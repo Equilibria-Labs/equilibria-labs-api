@@ -1,6 +1,7 @@
 import { SingleChoiceStep as SingleChoiceStepType } from '@/types/questionnaire';
 import { RadioGroup } from '@/components/ui/radio-group';
 import { Choice } from '@/components/common/Choice';
+import { Heading, HeadingSmall } from '@/components/common/Typography';
 
 interface SingleChoiceStepProps {
   step: SingleChoiceStepType;
@@ -18,8 +19,8 @@ export function SingleChoiceStep({
   return (
     <div className='space-y-6'>
       <div className='space-y-2'>
-        {step.subtitle && <div className='text-sm'>{step.subtitle}</div>}
-        {step.title && <h2 className='text-2xl font-bold'>{step.title}</h2>}
+        {step.subtitle && <HeadingSmall>{step.subtitle}</HeadingSmall>}
+        {step.title && <Heading>{step.title}</Heading>}
       </div>
 
       <RadioGroup

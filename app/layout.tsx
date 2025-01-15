@@ -1,8 +1,9 @@
 import HeaderAuth from '@/components/account/header-auth';
 import { ThemeSwitcher } from '@/components/account/theme-switcher';
-import { Pridi, Outfit } from 'next/font/google';
+import { Fraunces, Outfit } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import './globals.css';
+import { Heading } from '@/components/common/Typography';
 
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
@@ -14,12 +15,14 @@ export const metadata = {
   description: 'It’s time to get your sleep on track.',
 };
 
-const pridi = Pridi({
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const fraunces = Fraunces({
   display: 'swap',
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const outfit = Outfit({
   display: 'swap',
   subsets: ['latin'],
@@ -48,9 +51,7 @@ export default function RootLayout({
                 </div>
               </nav>
               <div className='flex flex-col gap-20 max-w-5xl p-5'>
-                <h1 className='font-heading text-heading-lg'>
-                  Your Heading Here
-                </h1>
+                <Heading>Your Heading Here</Heading>
                 {children}
               </div>
 

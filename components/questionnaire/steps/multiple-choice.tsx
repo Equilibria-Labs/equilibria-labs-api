@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { MultipleChoiceStep as MultipleChoiceStepType } from '@/types/questionnaire';
 import { Button } from '@/components/ui/button';
 import { Choice } from '@/components/common/Choice';
+import { Heading, HeadingSmall } from '@/components/common/Typography';
 
 interface MultipleChoiceStepProps {
   step: MultipleChoiceStepType;
@@ -46,8 +47,8 @@ export function MultipleChoiceStep({
   return (
     <div className='space-y-6'>
       <div className='space-y-2'>
-        {step.subtitle && <div className='text-sm'>{step.subtitle}</div>}
-        {step.title && <h2 className='text-2xl font-bold'>{step.title}</h2>}
+        {step.subtitle && <HeadingSmall>{step.subtitle}</HeadingSmall>}
+        {step.title && <Heading>{step.title}</Heading>}
       </div>
 
       <div className='space-y-3'>
