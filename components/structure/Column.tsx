@@ -6,6 +6,16 @@ interface ColumnProps {
   hasNoGap?: boolean;
 }
 
-export default function Column({ children }: { children: React.ReactNode }) {
-  return <div className='flex flex-col gap-20 max-w-5xl p-5'>{children}</div>;
+export default function Column({
+  children,
+  className = '',
+  hasNoGap = false,
+}: ColumnProps) {
+  return (
+    <div
+      className={`flex flex-col ${!hasNoGap ? 'gap-20' : ''} max-w-5xl p-5 ${className}`}
+    >
+      {children}
+    </div>
+  );
 }

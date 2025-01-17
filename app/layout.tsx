@@ -1,12 +1,7 @@
-import HeaderAuth from '@/components/account/header-auth';
-import { ThemeSwitcher } from '@/components/account/theme-switcher';
 import { Fraunces, Outfit } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import './globals.css';
-import { Heading } from '@/components/common/Typography';
 import Header from '@/components/structure/Header';
-import OceanDivider from '@/components/graphics/OceanDivider';
-import GradientHeader from '@/components/structure/GradientHeader';
 import SunriseHeader from '@/components/graphics/SunriseHeader';
 import Body from '@/components/structure/Body';
 import Footer from '@/components/structure/Footer';
