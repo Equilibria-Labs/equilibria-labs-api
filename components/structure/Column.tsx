@@ -13,7 +13,7 @@ export default function Column({
 }: ColumnProps) {
   return (
     <div
-      className={`flex flex-col ${!hasNoGap ? 'gap-20' : ''} max-w-5xl p-5 ${className}`}
+      className={`flex flex-col ${!hasNoGap ? 'gap-4' : ''} max-w-5xl p-5 ${className}`}
     >
       {children}
     </div>
