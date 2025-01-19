@@ -1,0 +1,8 @@
+equilibria-labs/
+├── apps/
+│   ├── web/               # Frontend application
+│   └── api/               # Backend API service
+├── packages/              # Shared packages/libraries
+│   └── shared-types/      # Shared TypeScript types
+├── .env.example          
+└── package.json 
