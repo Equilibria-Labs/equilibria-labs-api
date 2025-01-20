@@ -7,6 +7,9 @@
   "scripts": {
     "dev": "turbo run dev",
     "build": "turbo run build",
+    "build:dry": "turbo run build --dry",
+    "build:web": "turbo run build --filter=@equilibria-labs/web",
+    "build:web-verbose": "TURBO_LOG_VERBOSITY=verbose turbo run build --filter=@equilibria-labs/web",
     "start": "turbo run start",
     "lint": "turbo run lint --parallel",
     "dev:web": "turbo run dev --filter=@equilibria-labs/web",
