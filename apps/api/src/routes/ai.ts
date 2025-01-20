@@ -21,4 +21,17 @@ router.post('/chat', authenticateUser, async (req, res) => {
   }
 });
 
+router.post('/test', async (req, res) => {
+  try {
+    const completion = await openai.chat.completions.create({
+      messages: [{ role: 'user', content: 'Say hello!' }],
+      model: 'gpt-3.5-turbo',
+    });
+
+    res.json({ response: completion.choices[0].message.content });
+  } catch (error) {
+    res.status(500).json({ error: 'OpenAI request failed' });
+  }
+});
+
 export { router as aiRouter };
