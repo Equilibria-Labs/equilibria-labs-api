@@ -18,4 +18,21 @@ export interface ApiResponse<T> {
   message?: string;
 }
 
+export interface CookieMethods {
+  get: (name: string) => string | undefined;
+  getAll: () => { [key: string]: string };
+  set: (name: string, value: string, options?: CookieOptions) => void;
+  remove: (name: string, options?: CookieOptions) => void;
+}
+
+interface CookieOptions {
+  path?: string;
+  expires?: Date;
+  maxAge?: number;
+  domain?: string;
+  secure?: boolean;
+  httpOnly?: boolean;
+  sameSite?: 'strict' | 'lax' | 'none';
+}
+
 // ... other shared types
