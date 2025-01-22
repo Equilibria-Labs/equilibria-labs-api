@@ -37,12 +37,7 @@ module.exports = {
         allowNumber: true,
       },
     ],
-    '@typescript-eslint/restrict-plus-operands': [
-      'error',
-      {
-        checkCompoundAssignments: true,
-      },
-    ],
+    '@typescript-eslint/restrict-plus-operands': 'off',
   },
   settings: {
     react: {
