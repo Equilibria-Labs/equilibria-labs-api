@@ -5,8 +5,7 @@ const nextConfig = {
   output: 'standalone',
   distDir: '.next',
   experimental: {
-    // Enable required experimental features
-    serverActions: true,
+    // Remove serverActions since it's enabled by default now
     serverComponentsExternalPackages: [],
   },
   env: {
