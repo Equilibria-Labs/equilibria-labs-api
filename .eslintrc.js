@@ -30,6 +30,14 @@ module.exports = {
     '@typescript-eslint/no-base-to-string': 'off',
     '@typescript-eslint/no-misused-promises': 'off',
     '@typescript-eslint/await-thenable': 'off',
+    '@typescript-eslint/restrict-template-expressions': [
+      'error',
+      {
+        allowNullish: true,
+        allowNumber: true,
+      },
+    ],
+    '@typescript-eslint/restrict-plus-operands': 'off',
   },
   settings: {
     react: {
