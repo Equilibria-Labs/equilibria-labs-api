@@ -1,12 +1,19 @@
 import { createClient as createSupabaseClient } from '@supabase/supabase-js';
-import { cookies } from 'next/headers';
-import { checkEnvironmentVariables } from './check-env-vars';
 import { Database } from '../../types/supabase';
 
 export function createClient() {
-  checkEnvironmentVariables();
-  return createSupabaseClient<Database>(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseKey) {
+    console.error('Missing Supabase environment variables');
+    throw new Error('Missing Supabase environment variables');
+  }
+
+  try {
+    return createSupabaseClient<Database>(supabaseUrl, supabaseKey);
+  } catch (error) {
+    console.error('Error creating Supabase client:', error);
+    throw error;
+  }
 }
