@@ -27,6 +27,8 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@supabase/auth-helpers-nextjs": "0.10.0",
+    "@supabase/auth-helpers-shared": "^0.7.0",
     "@supabase/ssr": "^0.0.10",
     "next": "^14.0.0"
   }

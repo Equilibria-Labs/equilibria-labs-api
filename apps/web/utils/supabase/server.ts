@@ -1,17 +1,12 @@
-import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { createClient as createSupabaseClient } from '@supabase/supabase-js';
 import { cookies } from 'next/headers';
 import { checkEnvironmentVariables } from './check-env-vars';
+import { Database } from '../../types/supabase';
 
 export function createClient() {
   checkEnvironmentVariables();
-
-  return createServerComponentClient(
-    {
-      cookies,
-    },
-    {
-      supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
-    }
+  return createSupabaseClient<Database>(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
   );
 }
