@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  swcMinify: true,
   transpilePackages: ['@equilibria-labs/shared-types'],
   output: 'standalone',
   distDir: '.next',
@@ -15,7 +16,7 @@ const nextConfig = {
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy-anon-key',
   },
   // Ensure proper route handling
-  pageExtensions: ['tsx', 'ts'],
+  // pageExtensions: ['tsx', 'ts'],
   // Update webpack config to handle monorepo
   webpack: (config, { isServer }) => {
     // Add any necessary webpack customizations
