@@ -1,28 +1,8 @@
-import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { createClient } from '@/utils/supabase/server';
+import { updateSession } from '@/utils/supabase/middleware';
 
 export async function middleware(request: NextRequest) {
-  try {
-    // Create a response object that we can modify
-    const response = NextResponse.next({
-      request: {
-        headers: request.headers,
-      },
-    });
-
-    const supabase = createClient();
-    await supabase.auth.getSession();
-
-    return response;
-  } catch (e) {
-    // If you are here, a Supabase client could not be created
-    return NextResponse.next({
-      request: {
-        headers: request.headers,
-      },
-    });
-  }
+  return updateSession(request);
 }
 
 export const config = {
