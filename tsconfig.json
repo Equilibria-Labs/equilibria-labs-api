@@ -7,23 +7,7 @@
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "composite": true,
-    "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "paths": {
-      "@/*": ["./apps/web/*"]
-    }
+    "forceConsistentCasingInFileNames": true
   },
-  "exclude": ["node_modules"],
-  "references": [
-    { "path": "apps/web/tsconfig.json" },
-    { "path": "apps/api/tsconfig.json" },
-    { "path": "packages/shared-types/tsconfig.json" }
-  ]
+  "exclude": ["node_modules"]
 }
