@@ -26,20 +26,28 @@ export async function middleware(request: NextRequest) {
     );
 
     // This will refresh session if expired - required for Server Components
-    const user = await supabase.auth.getUser();
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser().catch(e => {
+      console.error('Error in getUser:', e);
+      return { data: { user: null }, error: e };
+    });
 
     // protected routes
-    if (request.nextUrl.pathname.startsWith('/protected') && user.error) {
+    if (request.nextUrl.pathname.startsWith('/protected') && error) {
+      console.error('Protected route access denied:', error);
       return NextResponse.redirect(new URL('/sign-in', request.url));
     }
 
-    if (request.nextUrl.pathname === '/' && !user.error) {
+    if (request.nextUrl.pathname === '/' && !error) {
       return NextResponse.redirect(new URL('/protected', request.url));
     }
 
     return response;
   } catch (e) {
     // If you are here, a Supabase client could not be created!
+    console.error('Middleware critical error:', e);
     return NextResponse.next({
       request: {
         headers: request.headers,
