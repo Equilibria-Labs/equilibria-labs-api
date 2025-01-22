@@ -19,14 +19,14 @@ export const metadata = {
 const fraunces = Fraunces({
   display: 'swap',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['700'],
 });
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const outfit = Outfit({
   display: 'swap',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '700'],
 });
 
 export default function RootLayout({

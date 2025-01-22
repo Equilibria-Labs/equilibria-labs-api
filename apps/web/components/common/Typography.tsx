@@ -14,15 +14,13 @@ export const HeadingLarge: React.FC<TypographyProps> = ({
   children,
   className = '',
 }) => (
-  <h2 className={`font-heading text-heading-xl ${className}`}>{children}</h2>
+  <h2 className={`font-heading text-heading-lg ${className}`}>{children}</h2>
 );
 
 export const Heading: React.FC<TypographyProps> = ({
   children,
   className = '',
-}) => (
-  <h3 className={`font-heading text-heading-lg ${className}`}>{children}</h3>
-);
+}) => <h3 className={`font-heading text-heading ${className}`}>{children}</h3>;
 
 export const HeadingSmall: React.FC<TypographyProps> = ({
   children,
