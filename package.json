@@ -16,11 +16,11 @@
     "dev:web": "turbo run dev --filter=@equilibria-labs/web",
     "dev:api": "turbo run dev --filter=@equilibria-labs/api",
     "dev:all": "turbo run dev --parallel",
-    "build:types": "cd packages/shared-types && npm run build",
+    "build:types": "cd packages/shared-types && pnpm run build",
     "clean": "rm -rf node_modules apps/*/node_modules packages/*/node_modules || true",
     "clean:build": "rm -rf packages/shared-types/dist apps/web/.next apps/api/dist || true",
-    "clean:all": "npm run clean && npm run clean:build && rm -f package-lock.json || true",
-    "fresh-install": "npm run clean:all && pnpm install"
+    "clean:all": "pnpm run clean && pnpm run clean:build && rm -f pnpm-lock.yaml || true",
+    "fresh-install": "pnpm run clean:all && pnpm install"
   },
   "devDependencies": {
     "turbo": "^1.12.4",

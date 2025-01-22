@@ -1,9 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "cd ../.. && npm run build:web",
+  "buildCommand": "pnpm build:web",
   "outputDirectory": "apps/web/.next",
   "framework": "nextjs",
-  "installCommand": "npm install",
+  "installCommand": "pnpm install",
   "builds": [
     {
       "src": "apps/web/package.json",
