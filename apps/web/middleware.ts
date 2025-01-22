@@ -10,22 +10,9 @@ export async function middleware(request: NextRequest) {
       },
     });
 
-    // Ensure environment variables are available
-    if (
-      !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-      !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    ) {
-      console.error('Missing Supabase environment variables');
-      return NextResponse.next({
-        request: {
-          headers: request.headers,
-        },
-      });
-    }
-
     const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
       {
         cookies: {
           get(name: string) {
@@ -38,28 +25,29 @@ export async function middleware(request: NextRequest) {
       }
     );
 
-    try {
-      // This will refresh session if expired - required for Server Components
-      await supabase.auth.getUser();
-    } catch (error) {
-      console.error('Error getting user:', error);
-      // Continue without authentication
-      return response;
-    }
+    // This will refresh session if expired - required for Server Components
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser().catch(e => {
+      console.error('Error in getUser:', e);
+      return { data: { user: null }, error: e };
+    });
 
     // protected routes
-    if (request.nextUrl.pathname.startsWith('/protected')) {
+    if (request.nextUrl.pathname.startsWith('/protected') && error) {
+      console.error('Protected route access denied:', error);
       return NextResponse.redirect(new URL('/sign-in', request.url));
     }
 
-    if (request.nextUrl.pathname === '/' && !user.error) {
+    if (request.nextUrl.pathname === '/' && !error) {
       return NextResponse.redirect(new URL('/protected', request.url));
     }
 
     return response;
   } catch (e) {
-    console.error('Middleware error:', e);
-    // If you are here, a Supabase client could not be created
+    // If you are here, a Supabase client could not be created!
+    console.error('Middleware critical error:', e);
     return NextResponse.next({
       request: {
         headers: request.headers,
@@ -70,14 +58,5 @@ export async function middleware(request: NextRequest) {
 
 // Configure which paths the middleware should run on
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except for the ones starting with:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * Feel free to modify this pattern to include more paths.
-     */
-    '/((?!_next/static|_next/image|favicon.ico).*)',
-  ],
+  matcher: ['/', '/protected/:path*'],
 };
