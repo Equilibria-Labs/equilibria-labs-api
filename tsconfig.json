@@ -1,12 +1,24 @@
 {
   "compilerOptions": {
     "target": "es2018",
-    "module": "commonjs",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "composite": true
+    "composite": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./apps/web/*"]
+    }
   },
   "exclude": ["node_modules"],
   "references": [
