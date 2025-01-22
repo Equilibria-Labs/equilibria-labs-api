@@ -1,11 +1,21 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
 import { supabase } from '../server';
 import { authenticateUser } from '../middleware/auth';
 import { Questionnaire } from '../types/questionnaire';
+import type {
+  Request,
+  Response,
+  ParamsDictionary,
+  RequestHandler,
+} from 'express-serve-static-core';
 
-const router = Router();
+interface QuestionnaireRequestBody {
+  responses: unknown;
+}
 
-router.post('/', authenticateUser, async (req: Request, res: Response) => {
+const router: Router = Router();
+
+router.post('/', authenticateUser, (async (req, res) => {
   const { responses } = req.body;
   const userId = req.user?.id;
 
@@ -31,9 +41,9 @@ router.post('/', authenticateUser, async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({ error: 'Failed to save questionnaire' });
   }
-});
+}) as RequestHandler<{}, any, QuestionnaireRequestBody>);
 
-router.get('/', authenticateUser, async (req: Request, res: Response) => {
+router.get('/', authenticateUser, (async (req, res) => {
   const userId = req.user?.id;
 
   if (!userId) {
@@ -52,6 +62,6 @@ router.get('/', authenticateUser, async (req: Request, res: Response) => {
   } catch (error) {
     res.status(500).json({ error: 'Failed to fetch questionnaires' });
   }
-});
+}) as RequestHandler);
 
 export { router as questionnaireRouter };

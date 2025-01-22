@@ -3,7 +3,7 @@ import OpenAI from 'openai';
 import { env } from '../config/env';
 import { authenticateUser } from '../middleware/auth';
 
-const router = Router();
+const router: Router = Router();
 const openai = new OpenAI({ apiKey: env.OPENAI_API_KEY });
 
 router.post('/chat', authenticateUser, async (req, res) => {

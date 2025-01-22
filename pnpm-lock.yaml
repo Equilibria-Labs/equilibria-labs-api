@@ -27,7 +27,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.19
       next:
-        specifier: ^14.0.0
+        specifier: 14.0.4
         version: 14.0.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
     devDependencies:
       turbo:
@@ -67,6 +67,9 @@ importers:
       '@types/express':
         specifier: ^4.17.21
         version: 4.17.21
+      '@types/express-serve-static-core':
+        specifier: 4.19.6
+        version: 4.19.6
       '@types/node':
         specifier: ^20.17.14
         version: 20.17.14
@@ -83,7 +86,7 @@ importers:
         specifier: ^2.0.0
         version: 2.0.0(@types/node@20.17.14)(typescript@5.7.3)
       typescript:
-        specifier: ^5.7.3
+        specifier: ^5.0.0
         version: 5.7.3
 
   apps/web:
@@ -118,6 +121,15 @@ importers:
       '@supabase/supabase-js':
         specifier: ^2.39.7
         version: 2.48.0
+      '@types/node':
+        specifier: ^20.0.0
+        version: 20.17.14
+      '@types/react':
+        specifier: ^18.2.0
+        version: 18.2.57
+      '@types/react-dom':
+        specifier: ^18.2.0
+        version: 18.2.19
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.1
@@ -128,8 +140,11 @@ importers:
         specifier: ^0.468.0
         version: 0.468.0(react@18.2.0)
       next:
-        specifier: ^14.0.0
+        specifier: 14.0.4
         version: 14.0.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
+      next-navigation:
+        specifier: ^1.0.6
+        version: 1.0.6
       next-themes:
         specifier: ^0.4.3
         version: 0.4.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
@@ -1985,6 +2000,9 @@ packages:
     resolution: {integrity: sha512-+EUsqGPLsM+j/zdChZjsnX51g4XrHFOIXwfnCVPGlQk/k5giakcKsuxCObBRu6DSm9opw/O6slWbJdghQM4bBg==}
     engines: {node: '>= 0.6'}
 
+  next-navigation@1.0.6:
+    resolution: {integrity: sha512-D4JXnngfeDFA+zsIWFcl8tr/rnCOXEUgJElfQ6zdcpHuNgR4peHKsk+FE1AGykEufKC7xgwv9oOSGK16c1VGiQ==}
+
   next-themes@0.4.4:
     resolution: {integrity: sha512-LDQ2qIOJF0VnuVrrMSMLrWGjRMkq+0mpgl6e0juCLqdJ+oo8Q84JRWT6Wh11VDQKkMMe+dVzDKLWs5n87T+PkQ==}
     peerDependencies:
@@ -2277,6 +2295,10 @@ packages:
     peerDependenciesMeta:
       '@types/react':
         optional: true
+
+  react@16.14.0:
+    resolution: {integrity: sha512-0X2CImDkJGApiAlcf0ODKIneSwBPhqJawOa5wCtKbu7ZECrmS26NvtSILynQ66cgkT/RJ4LidJOc3bUESwmU8g==}
+    engines: {node: '>=0.10.0'}
 
   react@18.2.0:
     resolution: {integrity: sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==}
@@ -4893,6 +4915,10 @@ snapshots:
 
   negotiator@0.6.3: {}
 
+  next-navigation@1.0.6:
+    dependencies:
+      react: 16.14.0
+
   next-themes@0.4.4(react-dom@18.2.0(react@18.2.0))(react@18.2.0):
     dependencies:
       react: 18.2.0
@@ -5172,6 +5198,12 @@ snapshots:
       tslib: 2.8.1
     optionalDependencies:
       '@types/react': 18.2.57
+
+  react@16.14.0:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      prop-types: 15.8.1
 
   react@18.2.0:
     dependencies:

@@ -1,73 +1,106 @@
-import { Router, Request, Response } from 'express';
+import { Router } from 'express';
+import type {
+  Request,
+  Response,
+  ParamsDictionary,
+} from 'express-serve-static-core';
 import { supabase } from '../server';
 import { authenticateUser } from '../middleware/auth';
 import { Onboarding } from '../types/onboarding';
 
-const router = Router();
+interface OnboardingRequestBody {
+  responses: unknown;
+  status: string;
+  onboarding_type?: string;
+  last_step?: string;
+}
 
-router.post('/', authenticateUser, async (req: Request, res: Response) => {
-  const { responses, status, onboarding_type, last_step } = req.body;
-  const userId = req.user?.id;
+interface OnboardingUpdateBody {
+  responses: unknown;
+  status: string;
+  last_step?: string;
+}
 
-  if (!userId) {
-    return res.status(401).json({ error: 'User not authenticated' });
+const router: Router = Router();
+
+router.post(
+  '/',
+  authenticateUser,
+  async (
+    req: Request<ParamsDictionary, any, OnboardingRequestBody>,
+    res: Response
+  ) => {
+    const { responses, status, onboarding_type, last_step } = req.body;
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res.status(401).json({ error: 'User not authenticated' });
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('onboarding')
+        .insert([
+          {
+            user_id: userId,
+            responses,
+            status,
+            onboarding_type,
+            last_step,
+            completed_at:
+              status === 'completed' ? new Date().toISOString() : null,
+          },
+        ])
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      return res.json(data as Onboarding);
+    } catch (error) {
+      return res.status(500).json({ error: 'Failed to save onboarding' });
+    }
   }
+);
 
-  try {
-    const { data, error } = await supabase
-      .from('onboarding')
-      .insert([
-        {
-          user_id: userId,
+router.put(
+  '/:id',
+  authenticateUser,
+  async (
+    req: Request<{ id: string }, any, OnboardingUpdateBody>,
+    res: Response
+  ) => {
+    const { responses, status, last_step } = req.body;
+    const { id } = req.params;
+    const userId = req.user?.id;
+
+    if (!userId) {
+      return res.status(401).json({ error: 'User not authenticated' });
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from('onboarding')
+        .update({
           responses,
           status,
-          onboarding_type,
           last_step,
           completed_at:
             status === 'completed' ? new Date().toISOString() : null,
-        },
-      ])
-      .select()
-      .single();
+        })
+        .eq('id', id)
+        .eq('user_id', userId)
+        .select()
+        .single();
 
-    if (error) throw error;
+      if (error) throw error;
 
-    res.json(data as Onboarding);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to save onboarding' });
+      return res.json(data as Onboarding);
+    } catch (error) {
+      return res.status(500).json({ error: 'Failed to update onboarding' });
+    }
   }
-});
-
-router.put('/:id', authenticateUser, async (req: Request, res: Response) => {
-  const { responses, status, last_step } = req.body;
-  const { id } = req.params;
-  const userId = req.user?.id;
-
-  if (!userId) {
-    return res.status(401).json({ error: 'User not authenticated' });
-  }
-
-  try {
-    const { data, error } = await supabase
-      .from('onboarding')
-      .update({
-        responses,
-        status,
-        last_step,
-        completed_at: status === 'completed' ? new Date().toISOString() : null,
-      })
-      .eq('id', id)
-      .eq('user_id', userId)
-      .select()
-      .single();
-
-    if (error) throw error;
-
-    res.json(data as Onboarding);
-  } catch (error) {
-    res.status(500).json({ error: 'Failed to update onboarding' });
-  }
-});
+);
 
 router.get('/', authenticateUser, async (req: Request, res: Response) => {
   const userId = req.user?.id;
@@ -85,9 +118,9 @@ router.get('/', authenticateUser, async (req: Request, res: Response) => {
 
     if (error) throw error;
 
-    res.json(data as Onboarding[]);
+    return res.json(data as Onboarding[]);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch onboarding data' });
+    return res.status(500).json({ error: 'Failed to fetch onboarding data' });
   }
 });
 
@@ -109,9 +142,9 @@ router.get('/latest', authenticateUser, async (req: Request, res: Response) => {
 
     if (error) throw error;
 
-    res.json(data as Onboarding);
+    return res.json(data as Onboarding);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch latest onboarding' });
+    return res.status(500).json({ error: 'Failed to fetch latest onboarding' });
   }
 });
 

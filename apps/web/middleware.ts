@@ -1,8 +1,28 @@
-import { type NextRequest } from "next/server";
-import { updateSession } from "@/utils/supabase/middleware";
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+import { createClient } from '@/utils/supabase/server';
 
 export async function middleware(request: NextRequest) {
-  return await updateSession(request);
+  try {
+    // Create a response object that we can modify
+    const response = NextResponse.next({
+      request: {
+        headers: request.headers,
+      },
+    });
+
+    const supabase = createClient();
+    await supabase.auth.getSession();
+
+    return response;
+  } catch (e) {
+    // If you are here, a Supabase client could not be created
+    return NextResponse.next({
+      request: {
+        headers: request.headers,
+      },
+    });
+  }
 }
 
 export const config = {
@@ -12,9 +32,8 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * - images - .svg, .png, .jpg, .jpeg, .gif, .webp
-     * Feel free to modify this pattern to include more paths.
+     * - public folder
      */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    '/((?!_next/static|_next/image|favicon.ico|public/).*)',
   ],
 };

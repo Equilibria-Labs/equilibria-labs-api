@@ -1,17 +1,26 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  transpilePackages: [],
+  transpilePackages: ['@equilibria-labs/shared-types'],
   output: 'standalone',
   distDir: '.next',
   experimental: {
-    // Remove or update other experimental features as needed
+    // Enable required experimental features
+    serverActions: true,
+    serverComponentsExternalPackages: [],
   },
   env: {
     NEXT_PUBLIC_SUPABASE_URL:
       process.env.NEXT_PUBLIC_SUPABASE_URL || 'http://localhost:54321',
     NEXT_PUBLIC_SUPABASE_ANON_KEY:
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'dummy-anon-key',
+  },
+  // Ensure proper route handling
+  pageExtensions: ['tsx', 'ts'],
+  // Update webpack config to handle monorepo
+  webpack: (config, { isServer }) => {
+    // Add any necessary webpack customizations
+    return config;
   },
 };
 
