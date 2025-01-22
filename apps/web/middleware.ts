@@ -1,19 +1,54 @@
-import type { NextRequest } from 'next/server';
-import { updateSession } from '@/utils/supabase/middleware';
+import { createServerClient } from '@supabase/ssr';
+import { type NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
-  return updateSession(request);
+  try {
+    // Create an unmodified response
+    let response = NextResponse.next({
+      request: {
+        headers: request.headers,
+      },
+    });
+
+    const supabase = createServerClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      {
+        cookies: {
+          get(name: string) {
+            return request.cookies.get(name)?.value;
+          },
+          set(name: string, value: string, options: any) {
+            response.cookies.set(name, value, options);
+          },
+        },
+      }
+    );
+
+    // This will refresh session if expired - required for Server Components
+    const user = await supabase.auth.getUser();
+
+    // protected routes
+    if (request.nextUrl.pathname.startsWith('/protected') && user.error) {
+      return NextResponse.redirect(new URL('/sign-in', request.url));
+    }
+
+    if (request.nextUrl.pathname === '/' && !user.error) {
+      return NextResponse.redirect(new URL('/protected', request.url));
+    }
+
+    return response;
+  } catch (e) {
+    // If you are here, a Supabase client could not be created!
+    return NextResponse.next({
+      request: {
+        headers: request.headers,
+      },
+    });
+  }
 }
 
+// Configure which paths the middleware should run on
 export const config = {
-  matcher: [
-    /*
-     * Match all request paths except:
-     * - _next/static (static files)
-     * - _next/image (image optimization files)
-     * - favicon.ico (favicon file)
-     * - public folder
-     */
-    '/((?!_next/static|_next/image|favicon.ico|public/).*)',
-  ],
+  matcher: ['/', '/protected/:path*'],
 };
