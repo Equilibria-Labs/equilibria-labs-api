@@ -66,10 +66,18 @@ module.exports = {
         input: ['Outfit', 'sans-serif'],
       },
       fontSize: {
+        title: '48px',
         'heading-lg': '32px',
         'heading-md': '24px',
         'body-lg': '18px',
         'body-md': '14px',
+      },
+      lineHeight: {
+        title: '56px',
+        'heading-lg': '40px',
+        'heading-md': '32px',
+        'body-lg': '24px',
+        'body-md': '18px',
       },
       spacing: {
         '1': '4px',
