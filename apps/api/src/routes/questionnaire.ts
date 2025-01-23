@@ -13,6 +13,8 @@ interface QuestionnaireRequestBody {
   responses: unknown;
 }
 
+export type EmptyObject = Record<string, never>;
+
 const router: Router = Router();
 
 router.post('/', authenticateUser, (async (req, res) => {
@@ -41,7 +43,7 @@ router.post('/', authenticateUser, (async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Failed to save questionnaire' });
   }
-}) as RequestHandler<{}, any, QuestionnaireRequestBody>);
+}) as RequestHandler<EmptyObject, unknown, QuestionnaireRequestBody>);
 
 router.get('/', authenticateUser, (async (req, res) => {
   const userId = req.user?.id;

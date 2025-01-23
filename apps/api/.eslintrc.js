@@ -5,6 +5,15 @@ module.exports = {
   rules: {
     '@typescript-eslint/no-namespace': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/ban-types': [
+      'error',
+      {
+        types: {
+          '{}': false,
+        },
+        extendDefaults: true,
+      },
+    ],
   },
   root: true,
   env: {
@@ -12,7 +21,7 @@ module.exports = {
     es6: true,
   },
   parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: 'module',
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
   },
 };

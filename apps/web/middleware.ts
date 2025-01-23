@@ -10,9 +10,17 @@ export async function middleware(request: NextRequest) {
       },
     });
 
+    if (
+      !process.env.NEXT_PUBLIC_SUPABASE_URL ||
+      !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    ) {
+      console.error('Missing required environment variables');
+      return NextResponse.redirect(new URL('/error', request.url));
+    }
+
     const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
       {
         cookies: {
           get(name: string) {
@@ -25,34 +33,29 @@ export async function middleware(request: NextRequest) {
       }
     );
 
-    // This will refresh session if expired - required for Server Components
     const {
       data: { user },
       error,
-    } = await supabase.auth.getUser().catch(e => {
-      console.error('Error in getUser:', e);
-      return { data: { user: null }, error: e };
-    });
+    } = await supabase.auth.getUser();
 
-    // protected routes
-    if (request.nextUrl.pathname.startsWith('/protected') && error) {
-      console.error('Protected route access denied:', error);
-      return NextResponse.redirect(new URL('/sign-in', request.url));
+    // Protected routes require authentication
+    if (request.nextUrl.pathname.startsWith('/protected')) {
+      if (error || !user) {
+        console.error('Protected route access denied:', error);
+        return NextResponse.redirect(new URL('/sign-in', request.url));
+      }
     }
 
-    if (request.nextUrl.pathname === '/' && !error) {
+    // Redirect authenticated users from home to protected area
+    if (request.nextUrl.pathname === '/' && user) {
       return NextResponse.redirect(new URL('/protected', request.url));
     }
 
     return response;
   } catch (e) {
-    // If you are here, a Supabase client could not be created!
     console.error('Middleware critical error:', e);
-    return NextResponse.next({
-      request: {
-        headers: request.headers,
-      },
-    });
+    // Redirect to an error page instead of silently continuing
+    return NextResponse.redirect(new URL('/error', request.url));
   }
 }
 
