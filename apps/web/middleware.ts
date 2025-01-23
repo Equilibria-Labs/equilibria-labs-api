@@ -1,74 +1,15 @@
-import { createServerClient } from '@supabase/ssr';
-import { type NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export const runtime = 'edge';
 
 export async function middleware(request: NextRequest) {
-  try {
-    console.log('Middleware starting for path:', request.nextUrl.pathname);
+  console.log('Middleware running on path:', request.nextUrl.pathname);
 
-    // Create an unmodified response
-    let response = NextResponse.next({
-      request: {
-        headers: request.headers,
-      },
-    });
-
-    if (
-      !process.env.NEXT_PUBLIC_SUPABASE_URL ||
-      !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    ) {
-      console.error('Environment variables missing:', {
-        url: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
-        key: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-      });
-      return NextResponse.redirect(new URL('/error', request.url));
-    }
-
-    const supabase = createServerClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-      {
-        cookies: {
-          get(name: string) {
-            return request.cookies.get(name)?.value;
-          },
-          set(name: string, value: string, options: any) {
-            response.cookies.set(name, value, options);
-          },
-        },
-      }
-    );
-
-    const {
-      data: { user },
-      error,
-    } = await supabase.auth.getUser();
-
-    // Protected routes require authentication
-    if (request.nextUrl.pathname.startsWith('/protected')) {
-      if (error || !user) {
-        console.error('Protected route access denied:', error);
-        return NextResponse.redirect(new URL('/sign-in', request.url));
-      }
-    }
-
-    // Redirect authenticated users from home to protected area
-    if (request.nextUrl.pathname === '/' && user) {
-      return NextResponse.redirect(new URL('/protected', request.url));
-    }
-
-    return response;
-  } catch (e) {
-    console.error('Middleware critical error:', {
-      error: e,
-      path: request.nextUrl.pathname,
-      headers: Object.fromEntries(request.headers.entries()),
-    });
-    // Redirect to an error page instead of silently continuing
-    return NextResponse.redirect(new URL('/error', request.url));
-  }
+  // Return a basic response to test if middleware works
+  return NextResponse.next();
 }
 
-// Configure which paths the middleware should run on
 export const config = {
   matcher: ['/', '/protected/:path*'],
 };

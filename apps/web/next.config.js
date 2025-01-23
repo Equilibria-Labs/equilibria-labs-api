@@ -7,6 +7,7 @@ const nextConfig = {
   distDir: '.next',
   experimental: {
     serverComponentsExternalPackages: ['@supabase/ssr'],
+    middleware: true,
   },
   typescript: {
     ignoreBuildErrors: false,
