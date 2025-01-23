@@ -3,6 +3,8 @@ import { type NextRequest, NextResponse } from 'next/server';
 
 export async function middleware(request: NextRequest) {
   try {
+    console.log('Middleware starting for path:', request.nextUrl.pathname);
+
     // Create an unmodified response
     let response = NextResponse.next({
       request: {
@@ -14,7 +16,10 @@ export async function middleware(request: NextRequest) {
       !process.env.NEXT_PUBLIC_SUPABASE_URL ||
       !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
     ) {
-      console.error('Missing required environment variables');
+      console.error('Environment variables missing:', {
+        url: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+        key: !!process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+      });
       return NextResponse.redirect(new URL('/error', request.url));
     }
 
@@ -53,7 +58,11 @@ export async function middleware(request: NextRequest) {
 
     return response;
   } catch (e) {
-    console.error('Middleware critical error:', e);
+    console.error('Middleware critical error:', {
+      error: e,
+      path: request.nextUrl.pathname,
+      headers: Object.fromEntries(request.headers.entries()),
+    });
     // Redirect to an error page instead of silently continuing
     return NextResponse.redirect(new URL('/error', request.url));
   }
