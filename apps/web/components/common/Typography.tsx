@@ -26,7 +26,7 @@ export const HeadingSmall: React.FC<TypographyProps> = ({
   children,
   className = '',
 }) => (
-  <h4 className={`font-heading text-heading-sm ${className}`}>{children}</h4>
+  <h4 className={`font-body text-heading-sm ${className}`}>{children}</h4>
 );
 
 export const LabelText: React.FC<TypographyProps> = ({
@@ -34,6 +34,13 @@ export const LabelText: React.FC<TypographyProps> = ({
   className = '',
 }) => (
   <label className={`font-label text-label ${className}`}>{children}</label>
+);
+
+export const LabelTextBold: React.FC<TypographyProps> = ({
+  children,
+  className = '',
+}) => (
+  <label className={`font-label text-label-bold ${className}`}>{children}</label>
 );
 
 export const BodyText: React.FC<TypographyProps> = ({
