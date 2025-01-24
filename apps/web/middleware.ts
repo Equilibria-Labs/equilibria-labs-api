@@ -68,3 +68,16 @@
 //     '/((?!_next/static|_next/image|favicon.ico|public).*)',
 //   ],
 // };
+
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+// Provide a minimal middleware function that just passes through requests
+export function middleware(request: NextRequest) {
+  return NextResponse.next();
+}
+
+// Keep a minimal matcher to avoid processing static files
+export const config = {
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|public).*)'],
+};
