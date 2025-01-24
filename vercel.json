@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "cd ../.. && pnpm build:web",
+  "buildCommand": "pnpm --filter=@equilibria-labs/web build",
   "outputDirectory": "apps/web/.next",
   "framework": "nextjs",
   "installCommand": "pnpm install",
@@ -9,5 +9,15 @@
       "src": "apps/web/package.json",
       "use": "@vercel/next"
     }
-  ]
+  ],
+  "projects": {
+    "@equilibria-labs/web": {
+      "rootDirectory": "apps/web"
+    }
+  },
+  "build": {
+    "env": {
+      "TURBO_REMOTE_ONLY": "true"
+    }
+  }
 }
