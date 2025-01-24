@@ -5,6 +5,9 @@ const nextConfig = {
   transpilePackages: ['@equilibria-labs/shared-types'],
   output: 'standalone',
   distDir: '.next',
+  experimental: {
+    runtime: 'edge',
+  },
 };
 
 module.exports = nextConfig;
