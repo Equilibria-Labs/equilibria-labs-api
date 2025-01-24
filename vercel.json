@@ -10,11 +10,6 @@
       "use": "@vercel/next"
     }
   ],
-  "projects": {
-    "@equilibria-labs/web": {
-      "rootDirectory": "apps/web"
-    }
-  },
   "build": {
     "env": {
       "TURBO_REMOTE_ONLY": "true"
