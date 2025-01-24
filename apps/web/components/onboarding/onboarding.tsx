@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Questionnaire } from '@/components/questionnaire/questionnaire';
 import { onboardingConfig } from '@/config/onboarding';
 
-export default function Page() {
+export default function Onboarding() {
   const [answers, setAnswers] = useState<Record<string, string[]>>({});
 
   const handleComplete = (newAnswers: Record<string, string[]>) => {
