@@ -10,9 +10,10 @@
       "use": "@vercel/next"
     }
   ],
-  "build": {
-    "env": {
-      "TURBO_REMOTE_ONLY": "true"
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/apps/web/$1"
     }
-  }
+  ]
 }
