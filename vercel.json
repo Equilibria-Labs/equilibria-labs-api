@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "framework": "nextjs",
-  "buildCommand": "cd apps/web && pnpm build",
+  "buildCommand": "pnpm --filter=@equilibria-labs/web build",
   "outputDirectory": "apps/web/.next",
+  "framework": "nextjs",
   "installCommand": "pnpm install",
   "builds": [
     {
-      "src": "apps/web/next.config.js",
+      "src": "apps/web/package.json",
       "use": "@vercel/next"
     }
   ]
