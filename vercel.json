@@ -1,9 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "pnpm --filter=@equilibria-labs/web build",
-  "outputDirectory": "apps/web/.next",
-  "framework": "nextjs",
+  "devCommand": "pnpm --filter=@equilibria-labs/web run dev -- --port $PORT",
+  "buildCommand": "cd ../../ && pnpm turbo build --filter=@equilibria-labs/web...",
   "installCommand": "pnpm install",
+  "framework": "nextjs",
   "builds": [
     {
       "src": "apps/web/package.json",
