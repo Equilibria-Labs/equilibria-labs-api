@@ -1,19 +1,8 @@
 {
   "version": 2,
   "devCommand": "pnpm exec vercel dev",
-  "buildCommand": "cd apps/web && pnpm turbo build --filter=@equilibria-labs/web",
+  "buildCommand": "pnpm turbo build --filter=@equilibria-labs/web",
   "installCommand": "pnpm install",
   "framework": "nextjs",
-  "builds": [
-    {
-      "src": "apps/web/package.json",
-      "use": "@vercel/next"
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/$1"
-    }
-  ]
+  "outputDirectory": ".next"
 }

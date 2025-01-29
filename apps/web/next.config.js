@@ -6,13 +6,10 @@ const nextConfig = {
   swcMinify: true,
   transpilePackages: ['@equilibria-labs/shared-types'],
   output: 'standalone',
-  distDir: '.next',
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
+  distDir: '.next', // ✅ Explicitly ensure the correct build path
+  experimental: {
+    outputFileTracingRoot: __dirname,
   },
-  basePath: '',
 };
 
 module.exports = nextConfig;

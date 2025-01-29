@@ -27,6 +27,10 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "../../packages/shared-types/src/**/*.ts"
+    // "app/protected/reset-password/page.tsx.disabled",
+    // "app/(auth-pages)/sign-up/page.tsx.disabled",
+    // "app/(auth-pages)/sign-in/page.tsx.disabled",
+    // "app/(auth-pages)/forgot-password/page.tsx.disabled"
   ],
   "exclude": ["node_modules"]
 }
