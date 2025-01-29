@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "devCommand": "pnpm exec vercel dev",
+  "devCommand": "pnpm dev",
   "buildCommand": "pnpm turbo build --filter=@equilibria-labs/web",
   "installCommand": "pnpm install",
   "framework": "nextjs",

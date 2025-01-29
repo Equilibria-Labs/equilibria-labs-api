@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "pnpm exec vercel dev",
+    "dev": "turbo run dev --parallel",
     "build": "turbo run build",
     "build:dry": "turbo run build --dry",
     "build:web": "turbo run build --filter=@equilibria-labs/web",
