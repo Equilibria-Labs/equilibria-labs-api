@@ -15,5 +15,11 @@
       "src": "/(.*)",
       "dest": "apps/web/.next/server/pages/$1"
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/apps/web/$1"
+    }
   ]
 }
