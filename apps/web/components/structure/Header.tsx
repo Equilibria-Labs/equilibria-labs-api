@@ -1,5 +1,5 @@
 import React from 'react';
-import Column from '@/components/structure/Column';
+import Column from '../../components/structure/Column';
 
 const Header = () => {
   return (

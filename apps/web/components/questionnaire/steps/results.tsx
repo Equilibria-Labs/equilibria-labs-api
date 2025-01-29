@@ -1,5 +1,5 @@
-import { ResultsStep as ResultsStepType } from '@/types/questionnaire';
-import { Button } from '@/components/ui/button';
+import { ResultsStep as ResultsStepType } from '../../../types/questionnaire';
+import { Button } from '../../../components/ui/button';
 import { Clock, Calendar, Brain, Moon, AlertCircle } from 'lucide-react';
 
 interface ResultsStepProps {

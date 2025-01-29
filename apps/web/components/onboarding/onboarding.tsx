@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { Questionnaire } from '@/components/questionnaire/questionnaire';
-import { onboardingConfig } from '@/config/onboarding';
+import { Questionnaire } from '../../components/questionnaire/questionnaire';
+import { onboardingConfig } from '../../config/onboarding';
 
 export default function Onboarding() {
   const [answers, setAnswers] = useState<Record<string, string[]>>({});

@@ -6,7 +6,7 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "pnpm exec vercel dev",
     "build": "turbo run build",
     "build:dry": "turbo run build --dry",
     "build:web": "turbo run build --filter=@equilibria-labs/web",
@@ -36,7 +36,8 @@
     "next": "14.0.4"
   },
   "engines": {
-    "node": ">=18.17.0"
+    "node": ">=18.17.0",
+    "pnpm": ">=7"
   },
   "pnpm": {
     "peerDependencyRules": {

@@ -1,9 +1,9 @@
 // import { useState, useEffect } from 'react';
 import { useState } from 'react';
-import { MultipleChoiceStep as MultipleChoiceStepType } from '@/types/questionnaire';
-import { Button } from '@/components/ui/button';
-import { Choice } from '@/components/common/Choice';
-import { Heading, HeadingSmall } from '@/components/common/Typography';
+import { MultipleChoiceStep as MultipleChoiceStepType } from '../../../types/questionnaire';
+import { Button } from '../../../components/ui/button';
+import { Choice } from '../../../components/common/Choice';
+import { Heading, HeadingSmall } from '../../../components/common/Typography';
 
 interface MultipleChoiceStepProps {
   step: MultipleChoiceStepType;

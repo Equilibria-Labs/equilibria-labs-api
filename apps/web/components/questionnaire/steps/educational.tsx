@@ -1,5 +1,5 @@
-import { EducationalStep as EducationalStepType } from '@/types/questionnaire';
-import { Button } from '@/components/ui/button';
+import { EducationalStep as EducationalStepType } from '../../../types/questionnaire';
+import { Button } from '../../../components/ui/button';
 
 interface EducationalStepProps {
   step: EducationalStepType;

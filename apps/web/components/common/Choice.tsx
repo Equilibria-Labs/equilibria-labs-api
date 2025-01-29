@@ -1,7 +1,7 @@
-import { RadioGroupItem } from '@/components/ui/radio-group';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
-import { LabelText } from '@/components/common/Typography';
+import { RadioGroupItem } from '../../components/ui/radio-group';
+import { Checkbox } from '../../components/ui/checkbox';
+import { Label } from '../../components/ui/label';
+import { LabelText } from '../../components/common/Typography';
 import { Check } from 'lucide-react';
 
 interface ChoiceProps {

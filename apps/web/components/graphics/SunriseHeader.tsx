@@ -1,4 +1,4 @@
-import OceanDivider from '@/components/graphics/OceanDivider';
+import OceanDivider from '../graphics/OceanDivider';
 import { PropsWithChildren } from 'react';
 
 export default function SunriseHeader({ children }: PropsWithChildren) {

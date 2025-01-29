@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 import { ChevronLeft } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '../../components/ui/button';
+import { Card, CardContent } from '../../components/ui/card';
 import { questions } from './questions';
 import { calculateISI } from './utils';
 import { Result } from './types';

@@ -1,7 +1,7 @@
-import { SingleChoiceStep as SingleChoiceStepType } from '@/types/questionnaire';
-import { RadioGroup } from '@/components/ui/radio-group';
-import { Choice } from '@/components/common/Choice';
-import { Heading, HeadingSmall } from '@/components/common/Typography';
+import { SingleChoiceStep as SingleChoiceStepType } from '../../../types/questionnaire';
+import { RadioGroup } from '../../../components/ui/radio-group';
+import { Choice } from '../../../components/common/Choice';
+import { Heading, HeadingSmall } from '../../../components/common/Typography';
 
 interface SingleChoiceStepProps {
   step: SingleChoiceStepType;

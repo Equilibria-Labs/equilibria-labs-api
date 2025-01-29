@@ -1,4 +1,4 @@
-import { OnboardingConfig } from '@/types';
+import { OnboardingConfig } from '../types';
 
 export const onboardingConfig: OnboardingConfig = {
   steps: [

@@ -1,4 +1,4 @@
-import OceanDivider from '@/components/graphics/OceanDivider';
+import OceanDivider from '../../components/graphics/OceanDivider';
 
 interface GradientHeaderProps {
   children: React.ReactNode;

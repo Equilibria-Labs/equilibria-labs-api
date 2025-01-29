@@ -7,9 +7,9 @@
       }
     ],
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/components/*": ["components/*"],
+      "@/app/*": ["app/*"],
+      "@/config/*": ["config/*"]
     },
     "allowJs": true,
     "noEmit": true,
@@ -18,7 +18,8 @@
     "module": "esnext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "baseUrl": "."
   },
   "include": [
     "next-env.d.ts",
@@ -27,7 +28,5 @@
     ".next/types/**/*.ts",
     "../../packages/shared-types/src/**/*.ts"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
