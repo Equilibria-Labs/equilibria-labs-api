@@ -56,3 +56,9 @@ next-env.d.ts
 
 # Turbo
 .turbo
+
+# package-lock.json
+package-lock.json
+.npm
+npm-debug.log
+.npmrc.npm

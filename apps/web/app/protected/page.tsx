@@ -1,18 +1,27 @@
-import { createClient } from '@/utils/supabase/server';
+import { createServerComponentClient } from '@supabase/auth-helpers-nextjs';
+import { cookies } from 'next/headers';
 import { InfoIcon } from 'lucide-react';
 import { redirect } from 'next/navigation';
 
 export default async function ProtectedPage() {
-  const supabase = await createClient();
+  console.log('🟩 Protected Page: Starting render');
+  const supabase = createServerComponentClient({ cookies });
 
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
+  console.log(
+    '🟩 Protected Page: User status:',
+    user ? 'Authenticated' : 'Not authenticated'
+  );
+
   if (!user) {
+    console.log('🟩 Protected Page: No user found, redirecting to /sign-in');
     return redirect('/sign-in');
   }
 
+  console.log('🟩 Protected Page: Rendering for authenticated user');
   return (
     <div className='flex-1 w-full flex flex-col gap-12'>
       <div className='w-full'>

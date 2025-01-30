@@ -10,6 +10,9 @@ const nextConfig = {
   experimental: {
     outputFileTracingRoot: __dirname,
   },
+  webpack: config => {
+    return config;
+  },
 };
 
 module.exports = nextConfig;

@@ -13,6 +13,8 @@
     "build:web-verbose": "TURBO_LOG_VERBOSITY=verbose turbo run build --filter=@equilibria-labs/web",
     "start": "turbo run start",
     "lint": "turbo run lint --parallel",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch",
     "dev:web": "turbo run dev --filter=@equilibria-labs/web",
     "dev:api": "turbo run dev --filter=@equilibria-labs/api",
     "dev:all": "turbo run dev --parallel",
@@ -23,6 +25,7 @@
     "fresh-install": "pnpm run clean:all && pnpm install"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.14",
     "turbo": "^1.12.4",
     "typescript": "5.1.6"
   },

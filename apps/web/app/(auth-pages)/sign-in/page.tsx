@@ -1,3 +1,4 @@
+'use client';
 import { signInAction } from '../../actions';
 import { FormMessage, Message } from '@/components/account/form-message';
 import { SubmitButton } from '@/components/account/submit-button';

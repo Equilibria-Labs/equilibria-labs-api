@@ -12,7 +12,7 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: 'The Sleep Lab by Equilibria Labs',
-  description: 'It’s time to get your sleep on track.',
+  description: "It's time to get your sleep on track.",
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,31 +31,12 @@ const outfit = Outfit({
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang='en' className='font-body' suppressHydrationWarning>
-      <body className='bg-background text-foreground'>
-        <ThemeProvider
-          attribute='class'
-          defaultTheme='system'
-          enableSystem
-          disableTransitionOnChange
-        >
-          <main className='min-h-screen flex flex-col items-center'>
-            <div className='flex-1 w-full flex flex-col items-center'>
-              <SunriseHeader>
-                <nav className='w-full flex justify-center h-16 relative z-10'>
-                  <Header />
-                </nav>
-              </SunriseHeader>
-              <Body>{children}</Body>
-              <Footer />
-            </div>
-          </main>
-        </ThemeProvider>
-      </body>
+    <html lang='en'>
+      <body>{children}</body>
     </html>
   );
 }
