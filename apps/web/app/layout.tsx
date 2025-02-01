@@ -1,7 +1,7 @@
 import { Fraunces, Outfit } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import './globals.css';
-import Header from '../components/structure/Header';
+import Header from '@/components/structure/Header';
 import SunriseHeader from '../components/graphics/SunriseHeader';
 import Body from '../components/structure/Body';
 import Footer from '../components/structure/Footer';
@@ -12,7 +12,7 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata = {
   metadataBase: new URL(defaultUrl),
   title: 'The Sleep Lab by Equilibria Labs',
-  description: 'It’s time to get your sleep on track.',
+  description: "It's time to get your sleep on track.",
 };
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -31,9 +31,9 @@ const outfit = Outfit({
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang='en' className='font-body' suppressHydrationWarning>
       <body className='bg-background text-foreground'>
