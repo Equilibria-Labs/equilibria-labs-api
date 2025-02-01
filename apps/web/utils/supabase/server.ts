@@ -11,18 +11,10 @@ export async function createClient() {
   );
 
   const cookieStore = cookies();
-  console.log('🟪 Available cookies:', 
+  console.log(
+    '🟪 Available cookies:',
     Array.from(cookieStore.getAll()).map(c => c.name)
   );
 
-  return createServerComponentClient<Database>({
-    cookies: () => cookieStore,
-    options: {
-      auth: {
-        persistSession: true,
-        autoRefreshToken: true,
-        detectSessionInUrl: true
-      }
-    }
-  });
+  return createServerComponentClient<Database>({ cookies: () => cookieStore });
 }

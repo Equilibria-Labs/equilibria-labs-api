@@ -35,8 +35,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en'>
-      <body>{children}</body>
+    <html lang='en' className='font-body' suppressHydrationWarning>
+      <body className='bg-background text-foreground'>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <main className='min-h-screen flex flex-col items-center'>
+            <div className='flex-1 w-full flex flex-col items-center'>
+              <SunriseHeader>
+                <nav className='w-full flex justify-center h-16 relative z-10'>
+                  <Header />
+                </nav>
+              </SunriseHeader>
+              <Body>{children}</Body>
+              <Footer />
+            </div>
+          </main>
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
