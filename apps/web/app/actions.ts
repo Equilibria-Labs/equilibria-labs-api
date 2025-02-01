@@ -66,10 +66,7 @@ export const signInAction = async (formData: FormData) => {
     return encodedRedirect('error', '/sign-in', 'Authentication failed');
   }
 
-  // Create response with cookies from Supabase
-  const response = redirect('/protected');
-
-  // Set the auth cookie
+  // Set the auth cookie using the cookies() API
   const cookieName = `sb-${process.env.NEXT_PUBLIC_SUPABASE_URL?.split('.')[0].split('//')[1]}-auth-token`;
   const cookieValue = JSON.stringify({
     access_token: signInData.session.access_token,
@@ -79,7 +76,7 @@ export const signInAction = async (formData: FormData) => {
   });
 
   console.log('🟦 Setting cookie:', cookieName);
-  response.cookies.set(cookieName, cookieValue, {
+  cookies().set(cookieName, cookieValue, {
     path: '/',
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -88,7 +85,7 @@ export const signInAction = async (formData: FormData) => {
   });
 
   console.log('🟢 Sign in successful, redirecting to /protected');
-  return response;
+  return redirect('/protected');
 };
 
 export const forgotPasswordAction = async (formData: FormData) => {

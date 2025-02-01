@@ -11,6 +11,8 @@ export default async function ProtectedPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  console.log('🟩 Protected Page: User:', user);
+
   console.log(
     '🟩 Protected Page: User status:',
     user ? 'Authenticated' : 'Not authenticated'

@@ -2,15 +2,13 @@ import { createServerClient, type CookieOptions } from '@supabase/ssr';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
-// Remove the explicit runtime declaration as it's not needed
-
 // Create a response function
 const getResponse = async (request: NextRequest) => {
   console.log(
     '🟨 Middleware: Processing request for path:',
     request.nextUrl.pathname
   );
-  
+
   // Create a new response
   const response = NextResponse.next({
     request: {
@@ -21,8 +19,12 @@ const getResponse = async (request: NextRequest) => {
   try {
     // Log cookies for debugging
     const allCookies = request.cookies.getAll();
-    console.log('🟨 Middleware: All cookies:', 
-      allCookies.map(c => ({ name: c.name, hasValue: !!c.value }))
+    console.log(
+      '🟨 Middleware: All cookies:',
+      allCookies.map(c => ({
+        name: c.name,
+        value: c.value,
+      }))
     );
 
     const cookieName = `sb-${process.env.NEXT_PUBLIC_SUPABASE_URL?.split('.')[0].split('//')[1]}-auth-token`;
@@ -35,7 +37,11 @@ const getResponse = async (request: NextRequest) => {
         cookies: {
           get(name: string) {
             const cookie = request.cookies.get(name);
-            console.log('🟨 Middleware: Getting cookie:', name, cookie?.value ? '(present)' : '(missing)');
+            console.log(
+              '🟨 Middleware: Getting cookie:',
+              name,
+              cookie?.value ? '(present)' : '(missing)'
+            );
             return cookie?.value;
           },
           set(name: string, value: string, options: CookieOptions) {
@@ -47,7 +53,8 @@ const getResponse = async (request: NextRequest) => {
               ...options,
               sameSite: 'lax',
               httpOnly: true,
-              secure: process.env.NODE_ENV === 'production',
+              // Allow cookies in HTTP for local development
+              secure: false,
             });
           },
           remove(name: string, options: CookieOptions) {
