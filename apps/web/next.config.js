@@ -13,6 +13,10 @@ const nextConfig = {
   webpack: config => {
     return config;
   },
+  compiler: {
+    // Enables the styled-jsx features
+    styledComponents: true,
+  },
 };
 
 module.exports = nextConfig;
