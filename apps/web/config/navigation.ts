@@ -1,4 +1,4 @@
-import { Sun, Book, Grid, User } from 'lucide-react';
+import { Sun, BookOpen, Grid, User } from 'lucide-react';
 import { NavConfigItem } from '@/types/navigation';
 
 export const mainNavConfig: NavConfigItem[] = [
@@ -8,7 +8,7 @@ export const mainNavConfig: NavConfigItem[] = [
     path: '/',
   },
   {
-    icon: Book,
+    icon: BookOpen,
     label: 'Library',
     path: '/resources',
   },
