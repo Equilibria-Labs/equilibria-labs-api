@@ -9,7 +9,6 @@ import { MessageStep } from './steps/message';
 import { EducationalStep } from './steps/educational';
 import { ResultsStep } from './steps/results';
 // import { Button } from '@/components/ui/button';
-import { ChevronLeft } from 'lucide-react';
 
 interface QuestionnaireProps {
   steps: Step[];
