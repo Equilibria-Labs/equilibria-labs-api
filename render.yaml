@@ -10,3 +10,4 @@ services:
         value: production
     skip: # Skip deployment if changes are only in web directory
       - apps/web/**/* 
+      
