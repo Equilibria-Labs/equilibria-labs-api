@@ -1,11 +1,8 @@
 {
   "folders": [
     {
-      "path": ".",
-    },
-    {
-      "path": "../equilibria-monorepo",
-    },
+      "path": "."
+    }
   ],
-  "settings": {},
+  "settings": {}
 }

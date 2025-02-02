@@ -13,7 +13,7 @@ export default function YouPage() {
 
         <div className='bg-white rounded-lg shadow p-6'>
           <h2 className='text-xl font-semibold mb-4'>
-            Here's what you've told us about yourself
+            Here&apos;s what you&apos;ve told us about yourself
           </h2>
 
           {/* Placeholder content - replace with actual user data components */}
