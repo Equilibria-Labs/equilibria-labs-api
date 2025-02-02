@@ -1,19 +1,19 @@
 import React from 'react';
-import Column from '../../components/structure/Column';
 import Logo from './Logo';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import Row from '@/components/structure/Row';
 
 const Header = () => {
   return (
-    <Column>
-      <header>
+    <header className='px-4 py-2'>
+      <Row isFullWidth justify='space-between' align='center'>
         <Logo />
         <Avatar>
           <AvatarImage src='https://github.com/shadcn.png' alt='@shadcn' />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
-      </header>
-    </Column>
+      </Row>
+    </header>
   );
 };
 

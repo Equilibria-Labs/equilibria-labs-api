@@ -52,6 +52,7 @@
     "jest-environment-jsdom": "^29.0.0",
     "mini-css-extract-plugin": "latest",
     "postcss": "8.5.1",
+    "postcss-import": "^16.1.0",
     "prettier": "3.3.3",
     "shadcn-ui": "^0.9.4",
     "tailwind-merge": "2.6.0",
