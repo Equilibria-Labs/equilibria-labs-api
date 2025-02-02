@@ -9,19 +9,9 @@ const nextConfig = {
   distDir: '.next', // ✅ Explicitly ensure the correct build path
   experimental: {
     outputFileTracingRoot: __dirname,
-    outputFileTracingIncludes: {
-      '**': ['styled-jsx/**/*'],
-    },
   },
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      config.resolve.alias['styled-jsx'] = require.resolve('styled-jsx');
-    }
+  webpack: config => {
     return config;
-  },
-  compiler: {
-    // Remove this as it's for styled-components, not styled-jsx
-    // styledComponents: true,
   },
 };
 
