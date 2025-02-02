@@ -9,7 +9,9 @@
     "paths": {
       "@/components/*": ["components/*"],
       "@/app/*": ["app/*"],
-      "@/config/*": ["config/*"]
+      "@/config/*": ["config/*"],
+      "@/types/*": ["types/*"],
+      "@/utils/*": ["utils/*"]
     },
     "allowJs": true,
     "noEmit": true,

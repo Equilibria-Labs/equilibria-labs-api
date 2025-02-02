@@ -23,6 +23,14 @@
     },
     "type-check": {
       "outputs": []
+    },
+    "test": {
+      "outputs": ["coverage/**"],
+      "dependsOn": ["^build"]
+    },
+    "test:watch": {
+      "cache": false,
+      "persistent": true
     }
   }
 }

@@ -1,5 +1,5 @@
 // import InsomniaQuiz from '../components/insomnia-severity-quiz/insomnia-severity-quiz';
-import Onboarding from '../components/onboarding/onboarding';
+import Onboarding from '@/components/onboarding/onboarding';
 
 export default async function Home() {
   console.log('Home page rendering');
