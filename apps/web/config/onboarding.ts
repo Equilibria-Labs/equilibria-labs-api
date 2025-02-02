@@ -4,7 +4,7 @@ export const onboardingConfig: OnboardingConfig = {
   steps: [
     {
       id: 'intro',
-      type: 'message-with-image',
+      type: 'message',
       title: 'Learn how to sleep again',
       message:
         'Get more deep sleep without pills using techniques from Stanford Sleep Clinic',
@@ -14,7 +14,7 @@ export const onboardingConfig: OnboardingConfig = {
       id: 'sleep-goals',
       type: 'multiple-choice-required',
       title: 'Pick your sleep goals',
-      subtitle: '(Select all that apply)',
+      heading: '(Select all that apply)',
       choices: [
         { id: 'fall-asleep', text: 'Fall asleep faster' },
         { id: 'sleep-through', text: 'Sleep through the night' },
@@ -26,7 +26,7 @@ export const onboardingConfig: OnboardingConfig = {
       id: 'age-group',
       type: 'single-choice',
       title: 'What is your age group?',
-      subtitle: 'Sleep needs change over time.',
+      heading: 'Sleep needs change over time.',
       choices: [
         { id: 'under-18', text: 'Under 18' },
         { id: '18-29', text: '18-29' },
@@ -71,7 +71,7 @@ export const onboardingConfig: OnboardingConfig = {
       id: 'awake-in-bed',
       type: 'single-choice',
       title: 'On an average night, how long are you awake in bed?',
-      subtitle: 'Include the time it takes you to fall asleep',
+      heading: 'Include the time it takes you to fall asleep',
       choices: [
         { id: '20-min', text: '20 minutes or less' },
         { id: '30-45-min', text: 'Between 30 - 45 mins' },
@@ -81,7 +81,7 @@ export const onboardingConfig: OnboardingConfig = {
     },
     {
       id: 'interrupted-sleep',
-      type: 'message-with-image',
+      type: 'message',
       title: 'Interrupted sleep is exhausting.',
       message:
         'Our tailored approach helps you get the deep, uninterrupted sleep you deserve.',
@@ -91,7 +91,7 @@ export const onboardingConfig: OnboardingConfig = {
       id: 'sleep-hours',
       type: 'single-choice',
       title: 'How many hours of sleep do you typically get per night?',
-      subtitle: 'An estimate for the last week will do!',
+      heading: 'An estimate for the last week will do!',
       choices: [
         { id: '4', text: '4 hours or less' },
         { id: '5', text: '5 hours' },
@@ -105,7 +105,7 @@ export const onboardingConfig: OnboardingConfig = {
       id: 'sleep-worry',
       type: 'single-choice',
       title: "Do you worry about how much sleep you're getting?",
-      subtitle: 'Good to know!',
+      heading: 'Good to know!',
       choices: [
         { id: 'often', text: 'Often' },
         { id: 'sometimes', text: 'Sometimes' },
@@ -145,7 +145,7 @@ export const onboardingConfig: OnboardingConfig = {
       id: 'sleep-solution-reasons',
       type: 'multiple-choice-required',
       title: 'Why are you seeking a sleep solution?',
-      subtitle: 'Select all that apply:',
+      heading: 'Select all that apply:',
       choices: [
         { id: 'health', text: "I'm worried about my health" },
         { id: 'productivity', text: 'I feel unproductive / ineffective' },
@@ -174,7 +174,7 @@ export const onboardingConfig: OnboardingConfig = {
       type: 'multiple-choice-optional',
       title:
         "Which of these best describes what you've been experiencing recently?",
-      subtitle: 'Select all that apply:',
+      heading: 'Select all that apply:',
       choices: [
         { id: 'stay-up-late', text: 'I often stay up too late' },
         { id: 'work-stress', text: 'Work stress' },
@@ -281,7 +281,7 @@ export const onboardingConfig: OnboardingConfig = {
       id: 'life-areas-affected',
       type: 'multiple-choice-required',
       title: 'Which parts of your life are most affected by poor sleep?',
-      subtitle: 'Select all that apply:',
+      heading: 'Select all that apply:',
       choices: [
         { id: 'relationships', text: 'Relationships with family and friends' },
         { id: 'work', text: 'Work and career' },
@@ -314,7 +314,7 @@ export const onboardingConfig: OnboardingConfig = {
       id: 'family-history',
       type: 'single-choice',
       title: "Is there a history of Alzheimer's or Parkinson's in your family?",
-      subtitle: 'Sleep issues can increase health risks.',
+      heading: 'Sleep issues can increase health risks.',
       choices: [
         { id: 'yes', text: 'Yes' },
         { id: 'no', text: 'No' },
@@ -336,7 +336,7 @@ export const onboardingConfig: OnboardingConfig = {
       id: 'bedtime-stress',
       type: 'single-choice',
       title: 'Do you ever feel stressed at the thought of going to bed?',
-      subtitle: 'Long-term sleep issues can lead to sleep anxiety.',
+      heading: 'Long-term sleep issues can lead to sleep anxiety.',
       choices: [
         { id: 'often', text: 'Often' },
         { id: 'sometimes', text: 'Sometimes' },
@@ -348,7 +348,7 @@ export const onboardingConfig: OnboardingConfig = {
       type: 'single-choice',
       title:
         '"I want to improve my sleep, but nothing I\'ve tried has worked in a lasting way."',
-      subtitle: 'Do you relate to the statement above?',
+      heading: 'Do you relate to the statement above?',
       choices: [
         { id: 'yes', text: 'Yes' },
         { id: 'no', text: 'No' },
@@ -358,7 +358,7 @@ export const onboardingConfig: OnboardingConfig = {
       id: 'previous-methods',
       type: 'multiple-choice-required',
       title: 'What have you tried to improve your sleep?',
-      subtitle: 'Select all that apply:',
+      heading: 'Select all that apply:',
       choices: [
         { id: 'caffeine', text: 'Cutting caffeine' },
         { id: 'meditation', text: 'Meditation / Yoga' },
@@ -381,7 +381,7 @@ export const onboardingConfig: OnboardingConfig = {
       id: 'cbti-familiarity',
       type: 'single-choice',
       title: 'How familiar are you with CBT-I?',
-      subtitle:
+      heading:
         'Sleep Reset uses Cognitive Behavioral Therapy for Insomnia (CBT-I), a top recommendation from doctors.',
       choices: [
         { id: 'done-before', text: "I've done CBTI before" },
@@ -416,7 +416,7 @@ export const onboardingConfig: OnboardingConfig = {
       id: 'program-excitement',
       type: 'multiple-choice-required',
       title: 'What are you most excited about with your personalized program?',
-      subtitle: 'Select all that apply:',
+      heading: 'Select all that apply:',
       choices: [
         { id: 'uncover-causes', text: 'Uncover causes of my sleep issues' },
         { id: 'learn-ways', text: 'Learn proven ways to improve sleep' },
