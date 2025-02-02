@@ -1,6 +1,9 @@
 export interface BaseStep {
   id: string;
   type: string;
+  title?: string;
+  heading?: string;
+  subheading?: string;
 }
 
 export interface Choice {
@@ -8,17 +11,8 @@ export interface Choice {
   text: string;
 }
 
-export interface MessageWithImageStep extends BaseStep {
-  type: 'message-with-image';
-  title: string;
-  message: string;
-  imageUrl: string;
-}
-
 export interface MultipleChoiceStep extends BaseStep {
   type: 'multiple-choice-required' | 'multiple-choice-optional';
-  title: string;
-  subtitle?: string;
   choices: Choice[];
   minSelections?: number;
   maxSelections?: number;
@@ -26,8 +20,6 @@ export interface MultipleChoiceStep extends BaseStep {
 
 export interface SingleChoiceStep extends BaseStep {
   type: 'single-choice';
-  title: string;
-  subtitle?: string;
   choices: Choice[];
 }
 
@@ -59,7 +51,6 @@ export interface ResultsStep extends BaseStep {
 }
 
 export type Step =
-  | MessageWithImageStep
   | MultipleChoiceStep
   | SingleChoiceStep
   | EducationalStep

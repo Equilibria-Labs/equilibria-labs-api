@@ -1,10 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import { Questionnaire } from '@/components/questionnaire/questionnaire';
-import { onboardingConfig } from '@/config/onboarding';
+import { Questionnaire } from '../questionnaire/questionnaire';
+import { welcomeConfig } from '@/config/welcome';
 
-export default function Onboarding() {
+export default function Welcome() {
   const [answers, setAnswers] = useState<Record<string, string[]>>({});
 
   const handleComplete = (newAnswers: Record<string, string[]>) => {
@@ -22,10 +22,11 @@ export default function Onboarding() {
 
   return (
     <Questionnaire
-      steps={onboardingConfig.steps}
+      steps={welcomeConfig.steps}
       onCompleteAction={handleComplete}
       onStepComplete={handleStepComplete}
       answers={answers}
+      shouldShowProgress={false}
     />
   );
 }

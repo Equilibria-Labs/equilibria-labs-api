@@ -19,7 +19,6 @@ export function SingleChoiceStep({
   return (
     <div className='space-y-6'>
       <div className='space-y-2'>
-        {step.subtitle && <HeadingSmall>{step.subtitle}</HeadingSmall>}
         {step.title && <Heading>{step.title}</Heading>}
       </div>
 

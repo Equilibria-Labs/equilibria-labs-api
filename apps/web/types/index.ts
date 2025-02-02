@@ -2,7 +2,6 @@
 export type {
   BaseStep,
   Choice,
-  MessageWithImageStep,
   MultipleChoiceStep,
   SingleChoiceStep,
   EducationalStep,
@@ -13,5 +12,5 @@ export type {
   QuestionnaireState,
 } from './questionnaire';
 
-// Export all types from onboarding.ts
 export type { OnboardingConfig } from './onboarding';
+export type { WelcomeConfig } from './welcome';
