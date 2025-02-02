@@ -16,9 +16,14 @@ interface QuestionnaireProps {
   onCompleteAction: (answers: Record<string, string[]>) => void;
   onStepComplete: (stepId: string, answer: string[]) => void;
   answers: Record<string, string[]>;
+  shouldShowProgress?: boolean;
 }
 
-export function Questionnaire({ steps, onCompleteAction }: QuestionnaireProps) {
+export function Questionnaire({
+  steps,
+  onCompleteAction,
+  shouldShowProgress = true,
+}: QuestionnaireProps) {
   const [state, setState] = useState<QuestionnaireState>({
     currentStepIndex: 0,
     answers: {},
@@ -81,7 +86,6 @@ export function Questionnaire({ steps, onCompleteAction }: QuestionnaireProps) {
           />
         );
       case 'message':
-      case 'message-with-image':
         return <MessageStep step={currentStep} next={handleNext} />;
       case 'educational':
         return <EducationalStep step={currentStep} next={handleNext} />;
@@ -93,37 +97,19 @@ export function Questionnaire({ steps, onCompleteAction }: QuestionnaireProps) {
   };
 
   return (
-    <div className='min-h-screen'>
-      <div className='container max-w-2xl mx-auto px-4 py-8'>
-        <header className='flex items-center mb-8'>
-          {state.currentStepIndex > 0 && currentStep.type !== 'results' && (
-            <button
-              onClick={handleBack}
-              className='p-2 hover:bg-white/10 rounded-full transition-colors'
-            >
-              <ChevronLeft className='w-6 h-6' />
-            </button>
-          )}
-          <h1 className='text-xl font-semibold mx-auto'>
-            {currentStep.type === 'results'
-              ? 'Your Sleep Profile'
-              : 'Building Your Sleep Profile'}
-          </h1>
-        </header>
+    <>
+      {shouldShowProgress && currentStep.type !== 'results' && (
+        <div className='mb-6 h-1 rounded-full'>
+          <div
+            className='h-full rounded-full transition-all duration-300'
+            style={{
+              width: `${((state.currentStepIndex + 1) / (steps.length - 1)) * 100}%`,
+            }}
+          />
+        </div>
+      )}
 
-        {currentStep.type !== 'results' && (
-          <div className='mb-6 h-1 rounded-full'>
-            <div
-              className='h-full rounded-full transition-all duration-300'
-              style={{
-                width: `${((state.currentStepIndex + 1) / (steps.length - 1)) * 100}%`,
-              }}
-            />
-          </div>
-        )}
-
-        {renderStep()}
-      </div>
-    </div>
+      {renderStep()}
+    </>
   );
 }

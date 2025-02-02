@@ -18,7 +18,13 @@ export default function BottomNavItem({
       onClick={onClick}
       className={`flex flex-col items-center gap-1 ${!isActive ? 'opacity-60' : ''} transition-opacity hover:opacity-100`}
     >
-      <Icon className='w-6 h-6' />
+      <div
+        className={`py-1 px-3 rounded-lg transition-colors duration-300 ${
+          isActive ? 'bg-white/20 dark:bg-white/10' : ''
+        }`}
+      >
+        <Icon className='w-6 h-6' />
+      </div>
       <span className='text-sm'>{label}</span>
     </button>
   );
