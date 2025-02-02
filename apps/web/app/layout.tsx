@@ -2,9 +2,9 @@ import { Fraunces, Outfit } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import './globals.css';
 import Header from '@/components/structure/Header';
-import SunriseHeader from '../components/graphics/SunriseHeader';
-import Body from '../components/structure/Body';
-import Footer from '../components/structure/Footer';
+import SunriseHeader from '@/components/graphics/SunriseHeader';
+import Body from '@/components/structure/Body';
+import BottomNav from '@/components/structure/BottomNav';
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : 'http://localhost:3000';
@@ -49,7 +49,7 @@ export default function RootLayout({
                   <Header />
               </SunriseHeader>
               <Body>{children}</Body>
-              <Footer />
+              <BottomNav />
             </div>
           </main>
         </ThemeProvider>

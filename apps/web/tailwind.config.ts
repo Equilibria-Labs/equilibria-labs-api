@@ -103,6 +103,7 @@ const config: Config = {
         headerHeightDesktop: '72px',
         sunGraphicDiameterMobile: '80px',
         sunGraphicDiameterDesktop: '100px',
+        maxWidth: '600px',
       },
     },
   },
