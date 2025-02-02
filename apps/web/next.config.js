@@ -9,6 +9,7 @@ const nextConfig = {
   distDir: '.next', // ✅ Explicitly ensure the correct build path
   experimental: {
     outputFileTracingRoot: __dirname,
+    serverComponentsExternalPackages: ['styled-jsx'],
   },
   webpack: config => {
     return config;
