@@ -2,7 +2,6 @@
 export type {
   BaseStep,
   Choice,
-  MessageWithImageStep,
   MultipleChoiceStep,
   SingleChoiceStep,
   EducationalStep,
