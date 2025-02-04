@@ -5,11 +5,14 @@ import { SubmitButton } from '@/components/account/submit-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
+import { processSearchParams } from '@/utils/search-params';
 
-export default async function SignIn(props: {
-  searchParams: Promise<Message>;
+export default async function SignIn({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const searchParams = await props.searchParams;
+  const message = await processSearchParams(searchParams);
 
   return (
     <form className='flex-1 flex flex-col min-w-64'>
@@ -41,7 +44,7 @@ export default async function SignIn(props: {
         <SubmitButton pendingText='Signing In...' formAction={signInAction}>
           Sign in
         </SubmitButton>
-        <FormMessage message={searchParams} />
+        <FormMessage message={message} />
       </div>
     </form>
   );
