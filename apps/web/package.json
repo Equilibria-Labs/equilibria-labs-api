@@ -43,6 +43,7 @@
     "@testing-library/jest-dom": "^6.0.0",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.0.0",
+    "@types/next": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "6.21.0",
     "autoprefixer": "10.4.20",
     "eslint": "8.56.0",
