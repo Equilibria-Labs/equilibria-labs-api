@@ -1,12 +1,10 @@
-import { forgotPasswordAction } from '../../actions';
+import { forgotPasswordAction } from '@/app/actions';
 import { FormMessage, Message } from '@/components/account/form-message';
 import { SubmitButton } from '@/components/account/submit-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { SmtpMessage } from '../smtp-message';
-
-export const dynamic = 'auto';
 
 export default async function ForgotPassword(props: {
   searchParams: Promise<Message>;
