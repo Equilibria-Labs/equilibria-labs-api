@@ -1,4 +1,5 @@
-export type Message =
-  | { success: string }
-  | { error: string }
-  | { message: string };
+export type MessageType = 'error' | 'success' | 'message';
+
+export type Message = {
+  [K in MessageType]?: string;
+};
