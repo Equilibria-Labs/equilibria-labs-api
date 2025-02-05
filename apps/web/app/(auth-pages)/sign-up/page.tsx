@@ -1,19 +1,23 @@
 import { signUpAction } from '@/app/actions';
-import { FormMessage, Message } from '@/components/account/form-message';
+import { FormMessage } from '@/components/account/form-message';
 import { SubmitButton } from '@/components/account/submit-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
 import { SmtpMessage } from '../smtp-message';
+import { processSearchParams } from '@/utils/search-params';
 
-export default async function Signup(props: {
-  searchParams: Promise<Message>;
+export default async function Signup({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  const searchParams = await props.searchParams;
-  if ('message' in searchParams) {
+  const message = await processSearchParams(searchParams);
+
+  if ('error' in message || 'success' in message) {
     return (
       <div className='w-full flex-1 flex items-center h-screen sm:max-w-md justify-center gap-2 p-4'>
-        <FormMessage message={searchParams} />
+        <FormMessage message={message} />
       </div>
     );
   }
@@ -42,7 +46,7 @@ export default async function Signup(props: {
           <SubmitButton formAction={signUpAction} pendingText='Signing up...'>
             Sign up
           </SubmitButton>
-          <FormMessage message={searchParams} />
+          <FormMessage message={message} />
         </div>
       </form>
       <SmtpMessage />
