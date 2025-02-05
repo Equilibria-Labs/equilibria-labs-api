@@ -40,72 +40,72 @@ export const signUpAction = async (formData: FormData) => {
 };
 
 // Origin signInAction
-export const signInAction = async (formData: FormData) => {
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
-  const supabase = await createClient();
-
-  const { error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-
-  if (error) {
-    return encodedRedirect('error', '/sign-in', error.message);
-  }
-
-  return redirect('/protected');
-};
-
-// Working locally sign in
 // export const signInAction = async (formData: FormData) => {
-//   console.log('🟦 Starting signInAction');
 //   const email = formData.get('email') as string;
 //   const password = formData.get('password') as string;
 //   const supabase = await createClient();
 
-//   console.log('🟦 Attempting sign in for email:', email);
-//   const { data: signInData, error } = await supabase.auth.signInWithPassword({
+//   const { error } = await supabase.auth.signInWithPassword({
 //     email,
 //     password,
 //   });
 
-//   console.log('🟦 Sign in response:', {
-//     session: signInData?.session ? 'Present' : 'Missing',
-//     error,
-//   });
-
 //   if (error) {
-//     console.log('🔴 Sign in error:', error.message);
 //     return encodedRedirect('error', '/sign-in', error.message);
 //   }
 
-//   if (!signInData.session) {
-//     console.log('🔴 Sign in error: No session returned');
-//     return encodedRedirect('error', '/sign-in', 'Authentication failed');
-//   }
-
-//   // Set the auth cookie using the cookies() API
-//   const cookieName = `sb-${process.env.NEXT_PUBLIC_SUPABASE_URL?.split('.')[0].split('//')[1]}-auth-token`;
-//   const cookieValue = JSON.stringify({
-//     access_token: signInData.session.access_token,
-//     refresh_token: signInData.session.refresh_token,
-//     expires_at: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7, // 1 week from now
-//     expires_in: 60 * 60 * 24 * 7, // 1 week
-//   });
-
-//   console.log('🟦 Setting cookie:', cookieName);
-//   cookies().set(cookieName, cookieValue, {
-//     path: '/',
-//     httpOnly: true,
-//     secure: process.env.NODE_ENV === 'production',
-//     sameSite: 'lax',
-//     maxAge: 60 * 60 * 24 * 7, // 1 week
-//   });
-
-//   console.log('🟢 Sign in successful, redirecting to /protected');
 //   return redirect('/protected');
 // };
+
+// Working locally sign in
+export const signInAction = async (formData: FormData) => {
+  console.log('🟦 Starting signInAction');
+  const email = formData.get('email') as string;
+  const password = formData.get('password') as string;
+  const supabase = await createClient();
+
+  console.log('🟦 Attempting sign in for email:', email);
+  const { data: signInData, error } = await supabase.auth.signInWithPassword({
+    email,
+    password,
+  });
+
+  console.log('🟦 Sign in response:', {
+    session: signInData?.session ? 'Present' : 'Missing',
+    error,
+  });
+
+  if (error) {
+    console.log('🔴 Sign in error:', error.message);
+    return encodedRedirect('error', '/sign-in', error.message);
+  }
+
+  if (!signInData.session) {
+    console.log('🔴 Sign in error: No session returned');
+    return encodedRedirect('error', '/sign-in', 'Authentication failed');
+  }
+
+  // Set the auth cookie using the cookies() API
+  const cookieName = `sb-${process.env.NEXT_PUBLIC_SUPABASE_URL?.split('.')[0].split('//')[1]}-auth-token`;
+  const cookieValue = JSON.stringify({
+    access_token: signInData.session.access_token,
+    refresh_token: signInData.session.refresh_token,
+    expires_at: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7, // 1 week from now
+    expires_in: 60 * 60 * 24 * 7, // 1 week
+  });
+
+  console.log('🟦 Setting cookie:', cookieName);
+  cookies().set(cookieName, cookieValue, {
+    path: '/',
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 24 * 7, // 1 week
+  });
+
+  console.log('🟢 Sign in successful, redirecting to /protected');
+  return redirect('/protected');
+};
 
 export const forgotPasswordAction = async (formData: FormData) => {
   const email = formData.get('email')?.toString();
