@@ -2,9 +2,10 @@ import { Fraunces, Outfit } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import './globals.css';
 import Header from '@/components/structure/Header';
-import SunriseHeader from '../components/graphics/SunriseHeader';
-import Body from '../components/structure/Body';
-import Footer from '../components/structure/Footer';
+import SunriseHeader from '@/components/graphics/SunriseHeader';
+import Body from '@/components/structure/Body';
+import BottomNav from '@/components/structure/BottomNav';
+
 const defaultUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : 'http://localhost:3000';
@@ -15,18 +16,18 @@ export const metadata = {
   description: "It's time to get your sleep on track.",
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const fraunces = Fraunces({
   display: 'swap',
   subsets: ['latin'],
-  weight: ['700'],
+  weight: ['600'],
+  variable: '--font-fraunces',
 });
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const outfit = Outfit({
   display: 'swap',
   subsets: ['latin'],
   weight: ['400', '700'],
+  variable: '--font-outfit',
 });
 
 export default function RootLayout({
@@ -35,7 +36,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang='en' className='font-body' suppressHydrationWarning>
+    <html
+      lang='en'
+      className={`${fraunces.variable} ${outfit.variable} font-body`}
+      suppressHydrationWarning
+    >
       <body className='bg-background text-foreground'>
         <ThemeProvider
           attribute='class'
@@ -46,12 +51,10 @@ export default function RootLayout({
           <main className='min-h-screen flex flex-col items-center'>
             <div className='flex-1 w-full flex flex-col items-center'>
               <SunriseHeader>
-                <nav className='w-full flex justify-center h-16 relative z-10'>
-                  <Header />
-                </nav>
+                <Header />
               </SunriseHeader>
               <Body>{children}</Body>
-              <Footer />
+              <BottomNav />
             </div>
           </main>
         </ThemeProvider>

@@ -2,13 +2,16 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local"],
   "pipeline": {
+    "install": {
+      "outputs": ["node_modules/**"]
+    },
     "build": {
-      "outputs": [".next/**", "!.next/cache/**"],
-      "dependsOn": ["^build"]
+      "dependsOn": ["install", "^build"],
+      "outputs": [".next/**", "dist/**"]
     },
     "build:web": {
-      "outputs": ["apps/web/.next/**"],
-      "dependsOn": ["^build"]
+      "dependsOn": ["install", "^build"],
+      "outputs": ["apps/web/.next/**"]
     },
     "dev": {
       "cache": false,

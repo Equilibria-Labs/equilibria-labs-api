@@ -1,11 +1,11 @@
 {
   "folders": [
     {
-      "path": ".",
+      "path": "."
     },
     {
-      "path": "../equilibria-monorepo",
-    },
+      "path": "../nextjs-with-supabase"
+    }
   ],
-  "settings": {},
+  "settings": {}
 }

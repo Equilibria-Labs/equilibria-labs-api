@@ -1,20 +1,24 @@
-'use client';
-import { signInAction } from '../../actions';
-import { FormMessage, Message } from '@/components/account/form-message';
+import { Message } from '@/types/auth';
+import { signInAction } from '@/app/actions';
+import { FormMessage } from '@/components/account/form-message';
 import { SubmitButton } from '@/components/account/submit-button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Link from 'next/link';
+import { processSearchParams } from '@/utils/search-params';
 
-export const dynamic = 'auto';
+export default async function SignIn({
+  searchParams,
+}: {
+  searchParams: { [key: string]: string | string[] | undefined };
+}) {
+  const message = await processSearchParams(searchParams);
 
-export default async function Login(props: { searchParams: Promise<Message> }) {
-  const searchParams = await props.searchParams;
   return (
     <form className='flex-1 flex flex-col min-w-64'>
       <h1 className='text-2xl font-medium'>Sign in</h1>
       <p className='text-sm text-foreground'>
-        Don't have an account?{' '}
+        Don&apos;t have an account?{' '}
         <Link className='text-foreground font-medium underline' href='/sign-up'>
           Sign up
         </Link>
@@ -40,7 +44,7 @@ export default async function Login(props: { searchParams: Promise<Message> }) {
         <SubmitButton pendingText='Signing In...' formAction={signInAction}>
           Sign in
         </SubmitButton>
-        <FormMessage message={searchParams} />
+        <FormMessage message={message} />
       </div>
     </form>
   );
