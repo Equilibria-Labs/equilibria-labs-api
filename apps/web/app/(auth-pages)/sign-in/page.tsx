@@ -12,7 +12,6 @@ export default async function SignIn({
 }: {
   searchParams: { [key: string]: string | string[] | undefined };
 }) {
-  console.log('searchParams', JSON.stringify(searchParams, null, 2));
   const message = await processSearchParams(searchParams);
 
   return (
