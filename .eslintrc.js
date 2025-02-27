@@ -1,47 +1,31 @@
 const { off } = require('process');
 
 module.exports = {
-  extends: [
-    'next/core-web-vitals',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@typescript-eslint/recommended-requiring-type-checking',
-    'prettier',
-  ],
+  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended'],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
-  root: true,
-  parserOptions: {
-    project: './tsconfig.json',
-    ecmaVersion: 2020,
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
-    },
-  },
   rules: {
-    '@typescript-eslint/no-unused-vars': ['error'],
-    '@typescript-eslint/no-explicit-any': ['error'],
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/require-await': 'off',
-    '@typescript-eslint/no-empty-interface': 'off',
-    'react/no-unescaped-entities': 'off',
-    '@typescript-eslint/no-empty-object-type': 'off',
-    '@typescript-eslint/no-base-to-string': 'off',
-    '@typescript-eslint/no-misused-promises': 'off',
-    '@typescript-eslint/await-thenable': 'off',
-    '@typescript-eslint/restrict-template-expressions': [
+    '@typescript-eslint/no-namespace': 'off',
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/ban-types': [
       'error',
       {
-        allowNullish: true,
-        allowNumber: true,
+        types: {
+          '{}': false,
+        },
+        extendDefaults: true,
       },
     ],
-    '@typescript-eslint/restrict-plus-operands': 'off',
   },
-  settings: {
-    react: {
-      version: 'detect',
-    },
+  root: true,
+  env: {
+    node: true,
+    es6: true,
   },
+  parserOptions: {
+    project: './tsconfig.json',
+    tsconfigRootDir: __dirname,
+    createDefaultProgram: true,
+  },
+  ignorePatterns: ['dist/**/*', '**/*.d.ts'],
 };
