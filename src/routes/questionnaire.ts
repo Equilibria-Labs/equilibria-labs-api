@@ -2,12 +2,7 @@ import { Router } from 'express';
 import { supabase } from '../server';
 import { authenticateUser } from '../middleware/auth';
 import { Questionnaire } from '../types/questionnaire';
-import type {
-  Request,
-  Response,
-  ParamsDictionary,
-  RequestHandler,
-} from 'express-serve-static-core';
+import type { RequestHandler } from 'express-serve-static-core';
 
 interface QuestionnaireRequestBody {
   responses: unknown;

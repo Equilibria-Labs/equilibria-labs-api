@@ -1,5 +1,4 @@
 import { app } from './server';
-import { env } from './config/env';
 import cors from 'cors';
 
 const port = process.env.PORT || 3001;

@@ -12,7 +12,7 @@ import { swaggerSpec } from '../config/swagger';
  * @param outputPath Path where the Swagger JSON file should be saved
  */
 export function exportSwaggerSpecForAI(
-  outputPath: string = './api-docs-for-ai.json'
+  outputPath = './api-docs-for-ai.json'
 ): void {
   try {
     // Ensure the output directory exists

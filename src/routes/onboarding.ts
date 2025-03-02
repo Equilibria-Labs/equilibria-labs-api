@@ -27,7 +27,7 @@ router.post(
   '/',
   authenticateUser,
   async (
-    req: Request<ParamsDictionary, any, OnboardingRequestBody>,
+    req: Request<ParamsDictionary, Onboarding, OnboardingRequestBody>,
     res: Response
   ) => {
     const { responses, status, onboarding_type, last_step } = req.body;
@@ -67,7 +67,7 @@ router.put(
   '/:id',
   authenticateUser,
   async (
-    req: Request<{ id: string }, any, OnboardingUpdateBody>,
+    req: Request<{ id: string }, Onboarding, OnboardingUpdateBody>,
     res: Response
   ) => {
     const { responses, status, last_step } = req.body;
