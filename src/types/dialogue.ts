@@ -7,7 +7,8 @@ import { Dialogue, Answer } from './shared/dialogue';
 export interface DialogueRecord {
   id: string;
   user_id: string;
-  dialogue_id: string;
+  dialogue_id: string; // Type of dialogue
+  submission_id?: string; // Unique identifier for each submission
   title: string;
   version: string;
   status: 'not_started' | 'in_progress' | 'complete' | 'submitted';
@@ -24,6 +25,7 @@ export interface DialogueRecord {
 export function toSharedDialogue(record: DialogueRecord): Dialogue {
   return {
     dialogueId: record.dialogue_id,
+    submissionId: record.submission_id,
     title: record.title,
     version: record.version,
     status: record.status,
@@ -43,6 +45,7 @@ export function fromSharedDialogue(
 ): Omit<DialogueRecord, 'id' | 'user_id' | 'created_at' | 'updated_at'> {
   return {
     dialogue_id: dialogue.dialogueId,
+    submission_id: dialogue.submissionId,
     title: dialogue.title,
     version: dialogue.version,
     status: dialogue.status,

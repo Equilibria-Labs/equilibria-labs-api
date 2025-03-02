@@ -35,7 +35,8 @@ export type Answer = {
 };
 
 export type Dialogue = {
-  dialogueId: string;
+  dialogueId: string; // Type of dialogue (e.g., 'isi', 'psqi')
+  submissionId?: string; // Unique identifier for each submission
   title: string;
   version: string;
   status: 'not_started' | 'in_progress' | 'complete' | 'submitted';
