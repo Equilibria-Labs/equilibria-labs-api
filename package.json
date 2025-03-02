@@ -6,7 +6,8 @@
     "dev": "NODE_ENV=development ts-node-dev --respawn --transpile-only src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
-    "lint": "eslint . --ext .ts --config .eslintrc.js"
+    "lint": "eslint . --ext .ts --config .eslintrc.js",
+    "export-api-docs": "ts-node src/scripts/exportApiDocsForAI.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.47.16",

@@ -1,0 +1,333 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Equilibria Labs API",
+    "version": "1.0.0",
+    "description": "API documentation for Equilibria Labs"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001",
+      "description": "Development server"
+    },
+    {
+      "url": "https://api.thesleeplab.app",
+      "description": "Production server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "Dialogue": {
+        "type": "object",
+        "required": [
+          "dialogueId",
+          "title",
+          "version",
+          "status",
+          "answers"
+        ],
+        "properties": {
+          "dialogueId": {
+            "type": "string",
+            "description": "Unique identifier for the dialogue"
+          },
+          "title": {
+            "type": "string",
+            "description": "Title of the dialogue"
+          },
+          "version": {
+            "type": "string",
+            "description": "Version of the dialogue"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "not_started",
+              "in_progress",
+              "complete",
+              "submitted"
+            ],
+            "description": "Status of the dialogue"
+          },
+          "submitted_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the dialogue was submitted"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the dialogue was created"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "description": "When the dialogue was last updated"
+          },
+          "answers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "step": {
+                  "type": "object",
+                  "properties": {
+                    "stepId": {
+                      "type": "string"
+                    },
+                    "questionId": {
+                      "type": "string"
+                    },
+                    "type": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "question": {
+                      "type": "string"
+                    },
+                    "choices": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "choiceId": {
+                            "type": "string"
+                          },
+                          "text": {
+                            "type": "string"
+                          },
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "stringValue": {
+                                "type": "string"
+                              },
+                              "numericValue": {
+                                "type": "number"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "stringValue": {
+                        "type": "string"
+                      },
+                      "numericValue": {
+                        "type": "number"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "score": {
+            "type": "number",
+            "description": "Optional score for the dialogue"
+          }
+        }
+      },
+      "DialogueRequest": {
+        "type": "object",
+        "required": [
+          "dialogue"
+        ],
+        "properties": {
+          "dialogue": {
+            "$ref": "#/components/schemas/Dialogue"
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    {
+      "bearerAuth": []
+    }
+  ],
+  "paths": {
+    "/api/dialogues": {
+      "post": {
+        "summary": "Create a new dialogue",
+        "tags": [
+          "Dialogues"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DialogueRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The dialogue was successfully created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dialogue"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not authenticated"
+          },
+          "500": {
+            "description": "Failed to save dialogue"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get all dialogues for the authenticated user",
+        "tags": [
+          "Dialogues"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of dialogues",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Dialogue"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not authenticated"
+          },
+          "500": {
+            "description": "Failed to fetch dialogues"
+          }
+        }
+      }
+    },
+    "/api/dialogues/{dialogueId}": {
+      "put": {
+        "summary": "Update an existing dialogue",
+        "tags": [
+          "Dialogues"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dialogueId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the dialogue to update"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DialogueRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The dialogue was successfully updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dialogue"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not authenticated"
+          },
+          "500": {
+            "description": "Failed to update dialogue"
+          }
+        }
+      },
+      "get": {
+        "summary": "Get a specific dialogue by ID",
+        "tags": [
+          "Dialogues"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "dialogueId",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": "ID of the dialogue to get"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The dialogue",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Dialogue"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "User not authenticated"
+          },
+          "500": {
+            "description": "Failed to fetch dialogue"
+          }
+        }
+      }
+    }
+  },
+  "tags": []
+}
