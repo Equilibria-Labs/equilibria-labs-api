@@ -3,11 +3,6 @@ import type { RequestHandler } from 'express-serve-static-core';
 import { supabase } from '../server';
 import { authenticateUser } from '../middleware/auth';
 import { Dialogue } from '../types/shared/dialogue';
-import {
-  DialogueRecord,
-  fromSharedDialogue,
-  toSharedDialogue,
-} from '../types/dialogue';
 
 interface DialogueRequestBody {
   dialogue: Dialogue;
@@ -16,102 +11,6 @@ interface DialogueRequestBody {
 export type EmptyObject = Record<string, never>;
 
 const router: Router = Router();
-
-/**
- * @swagger
- * components:
- *   schemas:
- *     Dialogue:
- *       type: object
- *       required:
- *         - dialogueId
- *         - title
- *         - version
- *         - status
- *         - answers
- *       properties:
- *         dialogueId:
- *           type: string
- *           description: Identifier for the type of dialogue (e.g., 'isi', 'psqi')
- *         submissionId:
- *           type: string
- *           description: Unique identifier for this specific dialogue submission
- *         title:
- *           type: string
- *           description: Title of the dialogue
- *         version:
- *           type: string
- *           description: Version of the dialogue
- *         status:
- *           type: string
- *           enum: [not_started, in_progress, complete, submitted]
- *           description: Status of the dialogue
- *         submitted_at:
- *           type: string
- *           format: date-time
- *           description: When the dialogue was submitted
- *         created_at:
- *           type: string
- *           format: date-time
- *           description: When the dialogue was created
- *         updated_at:
- *           type: string
- *           format: date-time
- *           description: When the dialogue was last updated
- *         answers:
- *           type: array
- *           items:
- *             type: object
- *             properties:
- *               step:
- *                 type: object
- *                 properties:
- *                   stepId:
- *                     type: string
- *                   questionId:
- *                     type: string
- *                   type:
- *                     type: string
- *                   title:
- *                     type: string
- *                   question:
- *                     type: string
- *                   choices:
- *                     type: array
- *                     items:
- *                       type: object
- *                       properties:
- *                         choiceId:
- *                           type: string
- *                         text:
- *                           type: string
- *                         value:
- *                           type: object
- *                           properties:
- *                             stringValue:
- *                               type: string
- *                             numericValue:
- *                               type: number
- *               value:
- *                 type: array
- *                 items:
- *                   type: object
- *                   properties:
- *                     stringValue:
- *                       type: string
- *                     numericValue:
- *                       type: number
- *         score:
- *           type: number
- *           description: Optional score for the dialogue
- *     DialogueRequest:
- *       type: object
- *       required:
- *         - dialogue
- *       properties:
- *         dialogue:
- *           $ref: '#/components/schemas/Dialogue'
- */
 
 /**
  * @swagger
@@ -126,14 +25,14 @@ const router: Router = Router();
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/DialogueRequest'
+ *             type: object
+ *             required: [dialogue]
+ *             properties:
+ *               dialogue:
+ *                 $ref: '#/components/schemas/Dialogue'
  *     responses:
  *       200:
  *         description: The dialogue was successfully created
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Dialogue'
  *       401:
  *         description: User not authenticated
  *       500:
@@ -148,14 +47,14 @@ router.post('/', authenticateUser, (async (req, res) => {
   }
 
   try {
-    // Ensure submissionId exists - client should provide this
-    if (!dialogue.submissionId) {
-      return res.status(400).json({ error: 'submissionId is required' });
+    // Ensure submission_id exists - client should provide this
+    if (!dialogue.submission_id) {
+      return res.status(400).json({ error: 'submission_id is required' });
     }
 
     const dialogueRecord = {
       user_id: userId,
-      ...fromSharedDialogue(dialogue),
+      ...dialogue,
     };
 
     const { data, error } = await supabase
@@ -166,7 +65,7 @@ router.post('/', authenticateUser, (async (req, res) => {
 
     if (error) throw error;
 
-    res.json(toSharedDialogue(data as DialogueRecord));
+    res.json(data);
   } catch (error) {
     console.error('Error saving dialogue:', error);
     res.status(500).json({ error: 'Failed to save dialogue' });
@@ -175,7 +74,7 @@ router.post('/', authenticateUser, (async (req, res) => {
 
 /**
  * @swagger
- * /api/dialogues/{dialogueId}/{submissionId}:
+ * /api/dialogues/{dialogue_id}/{submission_id}:
  *   put:
  *     summary: Update an existing dialogue submission
  *     tags: [Dialogues]
@@ -183,13 +82,13 @@ router.post('/', authenticateUser, (async (req, res) => {
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: dialogueId
+ *         name: dialogue_id
  *         schema:
  *           type: string
  *         required: true
  *         description: Type of dialogue to update
  *       - in: path
- *         name: submissionId
+ *         name: submission_id
  *         schema:
  *           type: string
  *         required: true
@@ -199,25 +98,25 @@ router.post('/', authenticateUser, (async (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/DialogueRequest'
+ *             type: object
+ *             required: [dialogue]
+ *             properties:
+ *               dialogue:
+ *                 $ref: '#/components/schemas/Dialogue'
  *     responses:
  *       200:
  *         description: The dialogue was successfully updated
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Dialogue'
  *       401:
  *         description: User not authenticated
  *       500:
  *         description: Failed to update dialogue
  */
-router.put('/:dialogueId/:submissionId', authenticateUser, (async (
+router.put('/:dialogue_id/:submission_id', authenticateUser, (async (
   req,
   res
 ) => {
   const { dialogue } = req.body;
-  const { dialogueId, submissionId } = req.params;
+  const { dialogue_id, submission_id } = req.params;
   const userId = req.user?.id;
 
   if (!userId) {
@@ -226,7 +125,7 @@ router.put('/:dialogueId/:submissionId', authenticateUser, (async (
 
   try {
     const dialogueRecord = {
-      ...fromSharedDialogue(dialogue),
+      ...dialogue,
       submitted_at:
         dialogue.status === 'submitted'
           ? new Date().toISOString()
@@ -236,20 +135,20 @@ router.put('/:dialogueId/:submissionId', authenticateUser, (async (
     const { data, error } = await supabase
       .from('dialogues')
       .update(dialogueRecord)
-      .eq('dialogue_id', dialogueId)
-      .eq('submission_id', submissionId)
+      .eq('dialogue_id', dialogue_id)
+      .eq('submission_id', submission_id)
       .eq('user_id', userId)
       .select()
       .single();
 
     if (error) throw error;
 
-    res.json(toSharedDialogue(data as DialogueRecord));
+    res.json(data);
   } catch (error) {
     console.error('Error updating dialogue:', error);
     res.status(500).json({ error: 'Failed to update dialogue' });
   }
-}) as RequestHandler<{ dialogueId: string; submissionId: string }, unknown, DialogueRequestBody>);
+}) as RequestHandler<{ dialogue_id: string; submission_id: string }, unknown, DialogueRequestBody>);
 
 /**
  * @swagger
@@ -289,8 +188,7 @@ router.get('/', authenticateUser, (async (req, res) => {
 
     if (error) throw error;
 
-    const dialogues = (data as DialogueRecord[]).map(toSharedDialogue);
-    res.json(dialogues);
+    res.json(data);
   } catch (error) {
     console.error('Error fetching dialogues:', error);
     res.status(500).json({ error: 'Failed to fetch dialogues' });
@@ -299,7 +197,7 @@ router.get('/', authenticateUser, (async (req, res) => {
 
 /**
  * @swagger
- * /api/dialogues/{dialogueId}:
+ * /api/dialogues/{dialogue_id}:
  *   get:
  *     summary: Get a specific dialogue by ID
  *     tags: [Dialogues]
@@ -307,7 +205,7 @@ router.get('/', authenticateUser, (async (req, res) => {
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: dialogueId
+ *         name: dialogue_id
  *         schema:
  *           type: string
  *         required: true
@@ -324,8 +222,8 @@ router.get('/', authenticateUser, (async (req, res) => {
  *       500:
  *         description: Failed to fetch dialogue
  */
-router.get('/:dialogueId', authenticateUser, (async (req, res) => {
-  const { dialogueId } = req.params;
+router.get('/:dialogue_id', authenticateUser, (async (req, res) => {
+  const { dialogue_id } = req.params;
   const userId = req.user?.id;
 
   if (!userId) {
@@ -336,22 +234,22 @@ router.get('/:dialogueId', authenticateUser, (async (req, res) => {
     const { data, error } = await supabase
       .from('dialogues')
       .select('*')
-      .eq('dialogue_id', dialogueId)
+      .eq('dialogue_id', dialogue_id)
       .eq('user_id', userId)
       .single();
 
     if (error) throw error;
 
-    res.json(toSharedDialogue(data as DialogueRecord));
+    res.json(data);
   } catch (error) {
     console.error('Error fetching dialogue:', error);
     res.status(500).json({ error: 'Failed to fetch dialogue' });
   }
-}) as RequestHandler<{ dialogueId: string }>);
+}) as RequestHandler<{ dialogue_id: string }>);
 
 /**
  * @swagger
- * /api/dialogues/{dialogueId}/{submissionId}:
+ * /api/dialogues/{dialogue_id}/{submission_id}:
  *   get:
  *     summary: Get a specific dialogue submission by ID
  *     tags: [Dialogues]
@@ -359,13 +257,13 @@ router.get('/:dialogueId', authenticateUser, (async (req, res) => {
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: dialogueId
+ *         name: dialogue_id
  *         schema:
  *           type: string
  *         required: true
  *         description: ID of the dialogue to get
  *       - in: path
- *         name: submissionId
+ *         name: submission_id
  *         schema:
  *           type: string
  *         required: true
@@ -382,11 +280,11 @@ router.get('/:dialogueId', authenticateUser, (async (req, res) => {
  *       500:
  *         description: Failed to fetch dialogue submission
  */
-router.get('/:dialogueId/:submissionId', authenticateUser, (async (
+router.get('/:dialogue_id/:submission_id', authenticateUser, (async (
   req,
   res
 ) => {
-  const { dialogueId, submissionId } = req.params;
+  const { dialogue_id, submission_id } = req.params;
   const userId = req.user?.id;
 
   if (!userId) {
@@ -397,23 +295,23 @@ router.get('/:dialogueId/:submissionId', authenticateUser, (async (
     const { data, error } = await supabase
       .from('dialogues')
       .select('*')
-      .eq('dialogue_id', dialogueId)
-      .eq('submission_id', submissionId)
+      .eq('dialogue_id', dialogue_id)
+      .eq('submission_id', submission_id)
       .eq('user_id', userId)
       .single();
 
     if (error) throw error;
 
-    res.json(toSharedDialogue(data as DialogueRecord));
+    res.json(data);
   } catch (error) {
     console.error('Error fetching dialogue submission:', error);
     res.status(500).json({ error: 'Failed to fetch dialogue submission' });
   }
-}) as RequestHandler<{ dialogueId: string; submissionId: string }>);
+}) as RequestHandler<{ dialogue_id: string; submission_id: string }>);
 
 /**
  * @swagger
- * /api/dialogues/type/{dialogueId}:
+ * /api/dialogues/type/{dialogue_id}:
  *   get:
  *     summary: Get all submissions for a specific dialogue type
  *     tags: [Dialogues]
@@ -421,7 +319,7 @@ router.get('/:dialogueId/:submissionId', authenticateUser, (async (
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
- *         name: dialogueId
+ *         name: dialogue_id
  *         schema:
  *           type: string
  *         required: true
@@ -440,8 +338,8 @@ router.get('/:dialogueId/:submissionId', authenticateUser, (async (
  *       500:
  *         description: Failed to fetch dialogue submissions
  */
-router.get('/type/:dialogueId', authenticateUser, (async (req, res) => {
-  const { dialogueId } = req.params;
+router.get('/type/:dialogue_id', authenticateUser, (async (req, res) => {
+  const { dialogue_id } = req.params;
   const userId = req.user?.id;
 
   if (!userId) {
@@ -452,20 +350,17 @@ router.get('/type/:dialogueId', authenticateUser, (async (req, res) => {
     const { data, error } = await supabase
       .from('dialogues')
       .select('*')
-      .eq('dialogue_id', dialogueId)
+      .eq('dialogue_id', dialogue_id)
       .eq('user_id', userId)
       .order('submitted_at', { ascending: false });
 
     if (error) throw error;
 
-    const dialogues = data.map((record: DialogueRecord) =>
-      toSharedDialogue(record)
-    );
-    res.json(dialogues);
+    res.json(data);
   } catch (error) {
     console.error('Error fetching dialogue submissions:', error);
     res.status(500).json({ error: 'Failed to fetch dialogue submissions' });
   }
-}) as RequestHandler<{ dialogueId: string }>);
+}) as RequestHandler<{ dialogue_id: string }>);
 
 export { router as dialogueRouter };

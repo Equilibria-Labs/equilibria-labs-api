@@ -4,7 +4,7 @@
  */
 
 export interface BaseStep {
-  stepId: string;
+  step_id: string;
   type: string;
   title?: string;
   question?: string;
@@ -14,18 +14,18 @@ export interface BaseStep {
 }
 
 export type ChoiceValue = {
-  stringValue?: string;
-  numericValue?: number;
+  string_value?: string;
+  numeric_value?: number;
 };
 
 export interface Choice {
-  choiceId: string;
+  choice_id: string;
   text: string;
   value: ChoiceValue;
 }
 
 export interface QuestionStep extends BaseStep {
-  questionId: string;
+  question_id: string;
   choices: Choice[];
 }
 
@@ -35,8 +35,8 @@ export type Answer = {
 };
 
 export type Dialogue = {
-  dialogueId: string; // Type of dialogue (e.g., 'isi', 'psqi')
-  submissionId?: string; // Unique identifier for each submission
+  dialogue_id: string; // Type of dialogue (e.g., 'isi', 'psqi')
+  submission_id?: string; // Unique identifier for each submission
   title: string;
   version: string;
   status: 'not_started' | 'in_progress' | 'complete' | 'submitted';
